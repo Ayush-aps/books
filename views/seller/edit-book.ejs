@@ -1,0 +1,129 @@
+<%- include('../partials/header') %>
+<main class="pb-16">
+<div class="container mx-auto px-4">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold">Edit Book</h1>
+    <a href="/seller/inventory" class="text-primary hover:text-dark">
+      <i class="fas fa-arrow-left mr-1"></i> Back to Inventory
+    </a>
+  </div>
+
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <div class="mb-6">
+      <div class="flex items-center mb-4">
+        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center mr-2">
+          <span class="text-dark font-bold">1</span>
+        </div>
+        <h2 class="text-xl font-semibold">Book Information</h2>
+      </div>
+
+      <form action="/seller/edit/<%= book._id %>" method="POST" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Title *</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value="<%= book.title %>"
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
+            />
+          </div>
+
+          <div>
+            <label for="author" class="block text-sm font-medium text-gray-700 mb-1">Author *</label>
+            <input
+              type="text"
+              id="author"
+              name="author"
+              value="<%= book.author %>"
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
+            />
+          </div>
+
+          <div>
+            <label for="price" class="block text-sm font-medium text-gray-700 mb-1">Price (₹) *</label>
+            <input
+              type="number"
+              id="price"
+              name="price"
+              value="<%= book.price %>"
+              min="0"
+              step="0.01"
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
+            />
+          </div>
+
+          <div>
+            <label for="discountPrice" class="block text-sm font-medium text-gray-700 mb-1">Discount Price (₹)</label>
+            <input
+              type="number"
+              id="discountPrice"
+              name="discountPrice"
+              value="<%= book.discountPrice %>"
+              min="0"
+              step="0.01"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
+            />
+            <p class="text-xs text-gray-500 mt-1">Leave empty to use regular price</p>
+          </div>
+
+          <div>
+            <label for="stock" class="block text-sm font-medium text-gray-700 mb-1">Stock *</label>
+            <input
+              type="number"
+              id="stock"
+              name="stock"
+              value="<%= book.stock %>"
+              min="0"
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
+            />
+          </div>
+
+          <div class="flex items-center">
+            <input
+              type="checkbox"
+              id="isAvailable"
+              name="isAvailable"
+              <%= book.isAvailable ? 'checked' : '' %>
+              class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+            />
+            <label for="isAvailable" class="ml-2 block text-sm text-gray-700">Available for Sale</label>
+          </div>
+
+          <div class="md:col-span-2">
+            <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description *</label>
+            <textarea
+              id="description"
+              name="description"
+              rows="5"
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
+            ><%= book.description %></textarea>
+          </div>
+        </div>
+
+        <div class="flex justify-end space-x-4">
+          <a
+            href="/seller/inventory"
+            class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+          >
+            Cancel
+          </a>
+          <button
+            type="submit"
+            class="px-4 py-2 border border-transparent rounded-md shadow-sm text-white bg-primary hover:bg-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+          >
+            Update Book
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</main>
+<%- include('../partials/footer') %> 

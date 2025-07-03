@@ -1,291 +1,1161 @@
 <%- include('partials/header') %>
+  <!-- hero section  -->
+  <section class="hero-section relative py-16 md:py-24 -mt-12 flex items-center">
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 md:pr-8">
+          <span
+            class="inline-block px-4 py-1 rounded-full bg-primary bg-opacity-20 text-light font-medium text-sm mb-4 backdrop-blur-sm">India's
+            Favorite Book Marketplace</span>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight drop-shadow-lg">
+            Discover Your Next <span class="text-primary">Favorite</span> Book
+          </h1>
+          <p class="text-lg md:text-xl text-white mb-8 max-w-xl drop-shadow-lg">
+            Browse thousands of books, from bestsellers to rare finds, all at your fingertips.
+          </p>
+          <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-8">
+            <a href="/buyer/browse"
+              class="bg-dark text-white px-8 py-4 rounded-lg text-center hover:bg-opacity-90 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg cursor-pointer inline-block">
+              <i class="fas fa-book-open mr-2"></i> Browse Books
+            </a>
+            <% if (!user) { %>
+              <a href="/auth/register"
+                class="bg-white text-dark px-8 py-4 rounded-lg text-center border border-dark hover:bg-gray-100 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                <i class="fas fa-store mr-2"></i> Become a Seller
+              </a>
+              <% } %>
+          </div>
+          <div class="flex items-center space-x-6 text-white text-sm">
+            <div class="flex items-center">
+              <i class="fas fa-check-circle text-primary mr-2"></i>
+              <span>Free shipping over ₹499</span>
+            </div>
+            <div class="flex items-center">
+              <i class="fas fa-check-circle text-primary mr-2"></i>
+              <span>Secure payment</span>
+            </div>
+          </div>
 
-<!-- Hero Section -->
-<section class="bg-primary py-12 md:py-20 -mt-12">
-  <div class="container mx-auto px-4">
-    <div class="flex flex-col md:flex-row items-center">
-      <div class="md:w-1/2 mb-8 md:mb-0">
-        <h1 class="text-4xl md:text-5xl font-bold text-dark mb-4">Discover Your Next Favorite Book</h1>
-        <p class="text-lg text-dark mb-6">Browse thousands of books, from bestsellers to rare finds. Buy new or second-hand books at the best prices.</p>
-        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-          <a href="/buyer/browse" class="bg-dark text-white px-6 py-3 rounded-md text-center hover:bg-opacity-90 transition">Browse Books</a>
-          <a href="/auth/register?role=seller" class="bg-white text-dark px-6 py-3 rounded-md text-center border border-dark hover:bg-gray-100 transition">Become a Seller</a>
         </div>
       </div>
-      <div class="md:w-1/2 p-4 ">
-        <!-- <img src="/img/hero-image.png" alt="Books Collection" class="rounded-lg shadow-lg"> -->
-        <img src="https://i.guim.co.uk/img/media/77e3e93d6571da3a5d77f74be57e618d5d930430/0_0_2560_1536/master/2560.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=c99740fab952ee29d238d75272b98a61" alt="Books Collection" class="rounded-lg shadow-lg" style="width: 1200px; height: 600px;" >
-      </div>
-    </div> 
-  </div>
-</section> 
+  </section>
 
-<!-- Features Section -->
-<section class="py-12 bg-white">
-  <div class="container mx-auto px-4">
-    <h2 class="text-3xl font-bold text-center mb-12">Why Choose Bookish?</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="text-center p-6 bg-light rounded-lg shadow-sm">
-        <div class="bg-primary rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-          <i class="fas fa-book text-2xl text-dark"></i>
-        </div>
-        <h3 class="text-xl font-semibold mb-2">Vast Collection</h3>
-        <p class="text-gray-600">Explore thousands of books across various genres, from bestsellers to rare finds.</p>
+  <style>
+    .hero-section {
+      min-height: 600px;
+    }
+
+    .hero-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("https://images.csmonitor.com/csm/2020/12/1112756_1_1209-best-2020-fiction_standard.jpg?alias=standard_900x600") center/cover no-repeat;
+      filter: brightness(0.4);
+      z-index: 1;
+    }
+
+    .hero-section::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5));
+      z-index: 2;
+    }
+
+    .text-shadow-strong {
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    .drop-shadow-lg {
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+    }
+
+    .drop-shadow-sm {
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    }
+
+    .book-card {
+      flex: 0 0 auto;
+      margin: 0 8px;
+      border-radius: 8px;
+      background-color: white;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      width: auto;
+      max-width: 180px;
+    }
+
+    .book-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .book-image-container {
+      position: relative;
+      width: 100%;
+      padding-top: 150%;
+      /* This creates a 2:3 aspect ratio common for book covers */
+      overflow: hidden;
+    }
+
+    .book-image-container .wishlist-btn {
+      /* New style for wishlist button */
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      padding: 0.25rem;
+      font-size: 0.875rem;
+      /* Slightly smaller */
+      color: #333;
+      z-index: 10;
+      line-height: 1;
+      width: 28px;
+      /* Adjust size */
+      height: 28px;
+      /* Adjust size */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      /* Ensure no default border */
+      cursor: pointer;
+    }
+
+    .book-image-container .wishlist-btn:hover {
+      color: #f56565;
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    .book-cover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* This ensures the image covers the container while maintaining aspect ratio */
+    }
+
+    .used-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 0.65rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background-color: #FEF3C7;
+      color: #92400E;
+      z-index: 2;
+      font-weight: 600;
+    }
+
+    .book-info {
+      padding: 0.75rem;
+      text-align: left;
+    }
+
+    .book-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      line-height: 1.2;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      height: auto;
+      min-height: 2.2em;
+      color: #333;
+    }
+
+    .book-author {
+      font-size: 0.8rem;
+      color: #3182CE;
+      margin-bottom: 0.5rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .price-container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .current-price {
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-right: 0.25rem;
+    }
+
+    .original-price {
+      color: #777;
+      text-decoration: line-through;
+      font-size: 0.75rem;
+      margin-right: 0.25rem;
+    }
+
+    .discount-text {
+      color: #A4B465;
+      font-weight: 600;
+      font-size: 0.7rem;
+    }
+
+    .action-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+
+    .add-bag-btn {
+      background-color: #6B7280;
+      color: white;
+      padding: 0.4rem 0.75rem;
+      border-radius: 0.375rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+
+    .add-bag-btn:hover {
+      background-color: #4B5563;
+    }
+
+    .wishlist-btn {
+      background: none;
+      border: none;
+      color: #777;
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 0.25rem;
+      transition: all 0.2s;
+    }
+
+    .wishlist-btn:hover {
+      color: #f56565;
+    }
+
+    .book-month-section {
+      background: linear-gradient(to right, #FEFAE0, #FFF);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .book-month-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 30%;
+      background: linear-gradient(to left, #A4B465, transparent);
+      opacity: 0.2;
+      z-index: 1;
+    }
+
+    .book-month-badge {
+      background-color: #A4B465;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      display: inline-block;
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+
+    .book-month-title {
+      font-size: 1.75rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+      color: #333;
+    }
+
+    .book-month-author {
+      font-size: 1rem;
+      color: #3182CE;
+      margin-bottom: 1.25rem;
+      font-weight: 600;
+    }
+
+    .book-month-description {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #4B5563;
+      margin-bottom: 1.5rem;
+    }
+
+    .book-month-cover {
+      height: auto;
+      max-height: 360px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+    }
+
+    .book-month-price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+
+    .book-month-strikethrough {
+      color: #777;
+      text-decoration: line-through;
+      font-size: 1.1rem;
+      margin-left: 0.5rem;
+      font-weight: 400;
+    }
+
+    .book-month-discount {
+      background-color: #A4B465;
+      color: white;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      margin-left: 0.5rem;
+    }
+
+    .book-month-button {
+      background-color: #333;
+      color: white;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+
+    .book-month-button:hover {
+      background-color: #000;
+      transform: translateY(-2px);
+    }
+
+    /* Additional carousel styling */
+    .modern-carousel {
+      position: relative;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 20px 0;
+      /* Increased vertical padding */
+      overflow: hidden;
+    }
+
+    .carousel-slide {
+      transition: all 0.3s ease;
+      padding: 15px;
+      /* Increased padding around each slide */
+      transform: scale(0.8);
+      /* Further reduced scale for non-highlighted cards */
+      opacity: 0.75;
+      transition: all 0.4s ease;
+    }
+
+    /* Center book styling - enlarged and full opacity */
+    .carousel-slide.center {
+      transform: scale(1);
+      /* Reduced to 1.0 (normal size) to prevent overflow */
+      opacity: 1;
+      z-index: 10;
+    }
+
+    .book-card-container {
+      /* Styles for the card itself within the slide */
+      height: 100%;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Enhanced shadow for center book - REMOVED */
+
+    .modern-carousel .carousel-btn {
+      color: #333;
+      font-size: 1.5rem;
+      background: rgba(255, 255, 255, 0.5);
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      opacity: 0.8;
+      transition: opacity 0.3s ease, background-color 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modern-carousel .carousel-btn:hover {
+      opacity: 1;
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .modern-carousel .carousel-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      background: rgba(200, 200, 200, 0.3);
+    }
+
+    /* Re-add carousel dots styling */
+    .carousel-dots {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 15px;
+    }
+
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #ccc;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .carousel-dot.active {
+      background-color: #A4B465;
+      width: 20px;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .carousel-btn {
+        width: 36px;
+        height: 36px;
+      }
+    }
+  </style>
+
+  <!-- Book of the Month Section -->
+  <section class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center mb-8">
+        <h2 class="text-2xl font-bold">Book of the Month</h2>
       </div>
-      <div class="text-center p-6 bg-light rounded-lg shadow-sm">
-        <div class="bg-primary rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-          <i class="fas fa-hand-holding-usd text-2xl text-dark"></i>
+
+      <div class="book-month-section p-6 md:p-8">
+        <div class="flex flex-col md:flex-row gap-8 relative z-10">
+          <div class="md:w-2/3">
+            <span class="book-month-badge">Editor's Choice</span>
+            <h3 class="book-month-title">The Silent Patient</h3>
+            <p class="book-month-author">Alex Michaelides</p>
+            <p class="book-month-description">
+              Alicia Berenson's life is seemingly perfect. A famous painter married to an in-demand fashion
+              photographer, she lives in a grand house overlooking a park in one of London's most desirable areas. One
+              evening, her husband Gabriel returns home late from a fashion shoot, and Alicia shoots him five times in
+              the face, and then never speaks another word.
+            </p>
+            <div class="flex items-center mb-4">
+              <span class="book-month-price">₹499</span>
+              <span class="book-month-strikethrough">₹799</span>
+              <span class="book-month-discount">38% OFF</span>
+            </div>
+            <a href="/buyer/book/681bca5d11cf030b0b525ed0" class="book-month-button">
+              Get This Book
+            </a>
+
+          </div>
+          <div class="md:w-1/3 flex justify-center">
+            <img src="https://m.media-amazon.com/images/I/81JJPDNlxSL._AC_UF1000,1000_QL80_.jpg"
+              alt="The Silent Patient" class="book-month-cover">
+          </div>
         </div>
-        <h3 class="text-xl font-semibold mb-2">Second-Hand Marketplace</h3>
-        <p class="text-gray-600">Buy and sell used books at affordable prices, giving books a second life.</p>
-      </div>
-      <div class="text-center p-6 bg-light rounded-lg shadow-sm">
-        <div class="bg-primary rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-          <i class="fas fa-video text-2xl text-dark"></i>
-        </div>
-        <h3 class="text-xl font-semibold mb-2">Video Reviews</h3>
-        <p class="text-gray-600">Watch video reviews and recommendations from fellow book lovers.</p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Featured Books Section -->
-<section class="py-12 bg-light">
-  <div class="container mx-auto px-4">
-    <div class="flex justify-between items-center mb-8">
-      <h2 class="text-2xl font-bold">Featured Books</h2>
-      <a href="/buyer/browse" class="text-dark hover:text-primary">View All <i class="fas fa-arrow-right ml-1"></i></a>
-    </div>
-    
-    <!-- Auto-Advancing Carousel -->
-    <div class="relative" id="featured-carousel">
-      <div class="overflow-hidden">
-        <div class="flex transition-transform duration-500 ease-in-out" id="carousel-inner">
-          <% featuredBooks.forEach((book, index) => { %>
-            <div class="w-full md:w-1/4 flex-shrink-0 px-2 book-card <%= index === 0 ? 'active' : '' %>">
-              <div class="bg-white rounded-lg shadow-md overflow-hidden h-full">
-                <a href="/buyer/book/<%= book._id %>">
-                  <img src="<%= book.coverImage %>" alt="<%= book.title %>" class="w-full h-64 object-cover">
-                  <div class="p-4">
-                    <h3 class="text-lg font-semibold mb-1 truncate"><%= book.title %></h3>
-                    <p class="text-gray-600 mb-2"><%= book.author %></p>
-                    <div class="flex justify-between items-center">
-                      <div>
-                        <span class="text-lg font-bold">₹<%= book.discountPrice || book.price %></span>
-                        <% if (book.discountPrice && book.discountPrice < book.price) { %>
-                          <span class="text-sm text-gray-500 line-through ml-1">₹<%= book.price %></span>
+  <!-- Featured Books Section -->
+  <section class="py-12 bg-light">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center mb-8">
+        <h2 class="text-2xl font-bold">Featured Books</h2>
+        <a href="/buyer/browse" class="text-dark hover:text-primary">View All <i
+            class="fas fa-arrow-right ml-1"></i></a>
+      </div>
+
+      <!-- Modern Carousel -->
+      <div class="relative modern-carousel" id="featured-carousel">
+        <!-- Add a loading overlay that will be removed after initialization -->
+        <div id="carousel-loader" class="absolute inset-0 bg-white bg-opacity-75 z-50 flex items-center justify-center">
+          <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
+        </div>
+        <div class="overflow-hidden rounded-lg px-8"> <!-- Increased horizontal padding from 4 to 8 -->
+          <div class="flex transition-transform duration-400 ease-in-out" id="carousel-inner">
+            <% featuredBooks.forEach((book, index)=> { %>
+              <div class="carousel-slide flex-shrink-0 <%= index === 2 ? 'center' : '' %>">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden h-full relative book-card-container">
+                  <a href="/buyer/book/<%= book._id %>">
+                    <div class="book-image-container">
+                      <img src="<%= book.coverImage %>" alt="<%= book.title %>" class="book-cover">
+                      <% if (book.condition==='used' ) { %>
+                        <span class="used-badge">Used</span>
                         <% } %>
-                      </div>
-                      <% if (book.condition === 'used') { %>
-                        <span class="bg-amber-100 text-amber-800 text-xs px-2 py-1 rounded-full">Used</span>
-                      <% } %>
+                          <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    </div>
+                  </a>
+                  <div class="book-info">
+                    <h3 class="book-title">
+                      <%= book.title %>
+                    </h3>
+                    <p class="book-author">
+                      <%= book.author %>
+                    </p>
+                    <div class="price-container">
+                      <span class="current-price">₹<%= book.discountPrice || book.price %></span>
+                      <% if (book.discountPrice && book.discountPrice < book.price) { %>
+                        <span class="original-price">₹<%= book.price %></span>
+                        <span class="discount-text">
+                          <%= Math.round((book.price - book.discountPrice) / book.price * 100) %>% OFF
+                        </span>
+                        <% } %>
+                    </div>
+                    <div class="action-buttons">
+                      <button class="add-bag-btn">ADD</button>
+                      <button class="wishlist-btn"><i class="far fa-heart"></i></button>
                     </div>
                   </div>
-                </a>
+                </div>
+              </div>
+              <% }) %>
+          </div>
+        </div>
+
+        <!-- Navigation buttons -->
+        <button class="carousel-btn prev-btn absolute left-2 top-1/2 transform -translate-y-1/2 z-10" id="prev-btn">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="carousel-btn next-btn absolute right-2 top-1/2 transform -translate-y-1/2 z-10" id="next-btn">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+
+        <!-- Re-add pagination dots -->
+        <div class="carousel-dots" id="carousel-dots"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Why Choose Bookish?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center p-6 bg-light rounded-lg shadow-sm">
+          <div class="bg-primary rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-book text-2xl text-dark"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Vast Collection</h3>
+          <p class="text-gray-600">Explore thousands of books across various genres, from bestsellers to rare finds.</p>
+        </div>
+        <div class="text-center p-6 bg-light rounded-lg shadow-sm">
+          <div class="bg-primary rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-hand-holding-usd text-2xl text-dark"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Second-Hand Marketplace</h3>
+          <p class="text-gray-600">Buy and sell used books at affordable prices, giving books a second life.</p>
+        </div>
+        <div class="text-center p-6 bg-light rounded-lg shadow-sm">
+          <div class="bg-primary rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-video text-2xl text-dark"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Video Reviews</h3>
+          <p class="text-gray-600">Watch video reviews and recommendations from fellow book lovers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- New Arrivals Section -->
+  <section class="py-12 bg-light">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center mb-8">
+        <h2 class="text-2xl font-bold">New Arrivals</h2>
+        <a href="/buyer/browse?sort=newest" class="text-dark hover:text-primary">View All <i
+            class="fas fa-arrow-right ml-1"></i></a>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-6">
+        <% newArrivals.slice(0, 6).forEach(book=> { %>
+          <div class="bg-white rounded-lg shadow-md overflow-hidden h-full relative book-card mx-0">
+            <a href="/buyer/book/<%= book._id %>">
+              <div class="book-image-container">
+                <img src="<%= book.coverImage %>" alt="<%= book.title %>" class="book-cover">
+                <% if (book.condition==='used' ) { %>
+                  <span class="used-badge">Used</span>
+                  <% } %>
+              </div>
+            </a>
+            <div class="book-info">
+              <h3 class="book-title">
+                <%= book.title %>
+              </h3>
+              <p class="book-author">
+                <%= book.author %>
+              </p>
+              <div class="price-container">
+                <span class="current-price">₹<%= book.discountPrice || book.price %></span>
+                <% if (book.discountPrice && book.discountPrice < book.price) { %>
+                  <span class="original-price">₹<%= book.price %></span>
+                  <span class="discount-text">(<%= Math.round((book.price - book.discountPrice) / book.price * 100) %>
+                      %)</span>
+                  <% } %>
+              </div>
+              <div class="action-buttons">
+                <button class="add-bag-btn">Add</button>
+                <button class="wishlist-btn"><i class="far fa-heart"></i></button>
               </div>
             </div>
+          </div>
           <% }) %>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Authors Section -->
+  <section class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center mb-8">
+        <h2 class="text-2xl font-bold">Featured Authors</h2>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
+        <!-- James Clear -->
+        <div class="text-center">
+          <div class="relative w-48 h-48 mx-auto mb-4 overflow-hidden rounded-full">
+            <img src="https://bookbins.b-cdn.net/wp-content/uploads/2024/04/Bookbins-Authors-James-Clear-1.jpeg" 
+                 alt="James Clear" 
+                 class="object-cover w-full h-full transform hover:scale-110 transition duration-300">
+          </div>
+          <h3 class="text-xl font-semibold mb-2">James Clear</h3>
+          <p class="text-gray-600">Author of "Atomic Habits"</p>
+        </div>
+
+        <!-- Stephen King -->
+        <div class="text-center">
+          <div class="relative w-48 h-48 mx-auto mb-4 overflow-hidden rounded-full">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn_nX1u6l096uPJpNyVJcg0yHYi-urN9TfEw&s" 
+                 alt="Stephen King" 
+                 class="object-cover w-full h-full transform hover:scale-110 transition duration-300">
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Stephen King</h3>
+          <p class="text-gray-600">Master of Horror Fiction</p>
+        </div>
+
+        <!-- J. G. Ballard -->
+        <div class="text-center">
+          <div class="relative w-48 h-48 mx-auto mb-4 overflow-hidden rounded-full">
+            <img src="https://static01.nyt.com/images/2009/04/21/books/21ballard190.jpg?quality=75&auto=webp&disable=upscale" 
+                 alt="J. G. Ballard" 
+                 class="object-cover w-full h-full transform hover:scale-110 transition duration-300">
+          </div>
+          <h3 class="text-xl font-semibold mb-2">J. G. Ballard</h3>
+          <p class="text-gray-600">Visionary Science Fiction</p>
+        </div>
+
+        <!-- Emily Henry -->
+        <div class="text-center">
+          <div class="relative w-48 h-48 mx-auto mb-4 overflow-hidden rounded-full">
+            <img src="https://m.media-amazon.com/images/S/amzn-author-media-prod/qgushojm4202cgqeh9lv86g2a7._SY450_CR0%2C0%2C450%2C450_.jpg" 
+                 alt="Emily Henry" 
+                 class="object-cover w-full h-full transform hover:scale-110 transition duration-300">
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Emily Henry</h3>
+          <p class="text-gray-600">Contemporary Romance</p>
+        </div>
+
+        <!-- Carlos Ruiz Zafón -->
+        <div class="text-center">
+          <div class="relative w-48 h-48 mx-auto mb-4 overflow-hidden rounded-full">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR54foTNZa5Mtz1CsWdvwKMjiuU06H19DsFAw&s" 
+                 alt="Carlos Ruiz Zafón" 
+                 class="object-cover w-full h-full transform hover:scale-110 transition duration-300">
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Carlos Ruiz Zafón</h3>
+          <p class="text-gray-600">Gothic Literature Master</p>
         </div>
       </div>
-      <button class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full w-10 h-10 shadow-md flex items-center justify-center z-10" id="prev-btn">
-        <i class="fas fa-chevron-left"></i>
-      </button>
-      <button class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full w-10 h-10 shadow-md flex items-center justify-center z-10" id="next-btn">
-        <i class="fas fa-chevron-right"></i>
-      </button>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- New Arrivals Section -->
-<section class="py-12 bg-white">
-  <div class="container mx-auto px-4">
-    <div class="flex justify-between items-center mb-8">
-      <h2 class="text-2xl font-bold">New Arrivals</h2>
-      <a href="/buyer/browse?sort=newest" class="text-dark hover:text-primary">View All <i class="fas fa-arrow-right ml-1"></i></a>
-    </div>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-      <% newArrivals.slice(0, 4).forEach(book => { %>
-        <div class="bg-light rounded-lg shadow-sm overflow-hidden">
-          <a href="/buyer/book/<%= book._id %>">
-            <img src="<%= book.coverImage %>" alt="<%= book.title %>" class="w-full h-56 object-cover">
-            <div class="p-4">
-              <h3 class="text-lg font-semibold mb-1 truncate"><%= book.title %></h3>
-              <p class="text-gray-600 mb-2"><%= book.author %></p>
-              <div class="flex justify-between items-center">
-                <div>
-                  <span class="text-lg font-bold">₹<%= book.discountPrice || book.price %></span>
-                  <% if (book.discountPrice && book.discountPrice < book.price) { %>
-                    <span class="text-sm text-gray-500 line-through ml-1">₹<%= book.price %></span>
+  <!-- Trending Books Section -->
+  <section class="py-12 bg-light">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center mb-8">
+        <h2 class="text-2xl font-bold">Trending Now</h2>
+        <a href="/buyer/browse?sort=rating" class="text-dark hover:text-primary">View All <i
+            class="fas fa-arrow-right ml-1"></i></a>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-6">
+        <% trendingBooks.slice(0, 6).forEach(book=> { %>
+          <div class="bg-white rounded-lg shadow-md overflow-hidden h-full relative book-card mx-0">
+            <a href="/buyer/book/<%= book._id %>">
+              <div class="book-image-container">
+                <img src="<%= book.coverImage %>" alt="<%= book.title %>" class="book-cover">
+                <% if (book.condition==='used' ) { %>
+                  <span class="used-badge">Used</span>
                   <% } %>
-                </div>
-                <% if (book.condition === 'used') { %>
-                  <span class="bg-amber-100 text-amber-800 text-xs px-2 py-1 rounded-full">Used</span>
-                <% } %>
+              </div>
+            </a>
+            <div class="book-info">
+              <h3 class="book-title">
+                <%= book.title %>
+              </h3>
+              <p class="book-author">
+                <%= book.author %>
+              </p>
+              <div class="price-container">
+                <span class="current-price">₹<%= book.discountPrice || book.price %></span>
+                <% if (book.discountPrice && book.discountPrice < book.price) { %>
+                  <span class="original-price">₹<%= book.price %></span>
+                  <span class="discount-text">(<%= Math.round((book.price - book.discountPrice) / book.price * 100) %>
+                      %)</span>
+                  <% } %>
+              </div>
+              <div class="action-buttons">
+                <button class="add-bag-btn">Add</button>
+                <button class="wishlist-btn"><i class="far fa-heart"></i></button>
               </div>
             </div>
-          </a>
-        </div>
-      <% }) %>
+          </div>
+          <% }) %>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Trending Books Section -->
-<section class="py-12 bg-light">
-  <div class="container mx-auto px-4">
-    <div class="flex justify-between items-center mb-8">
-      <h2 class="text-2xl font-bold">Trending Now</h2>
-      <a href="/buyer/browse?sort=rating" class="text-dark hover:text-primary">View All <i class="fas fa-arrow-right ml-1"></i></a>
-    </div>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-      <% trendingBooks.slice(0, 4).forEach(book => { %>
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
-          <a href="/buyer/book/<%= book._id %>">
-            <img src="<%= book.coverImage %>" alt="<%= book.title %>" class="w-full h-56 object-cover">
-            <div class="p-4">
-              <h3 class="text-lg font-semibold mb-1 truncate"><%= book.title %></h3>
-              <p class="text-gray-600 mb-2"><%= book.author %></p>
-              <div class="flex justify-between items-center">
-                <div>
-                  <span class="text-lg font-bold">₹<%= book.discountPrice || book.price %></span>
-                  <% if (book.discountPrice && book.discountPrice < book.price) { %>
-                    <span class="text-sm text-gray-500 line-through ml-1">₹<%= book.price %></span>
+  <!-- Testimonials Section -->
+  <section class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">What Our Customers Say</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="flex items-center mb-4">
+            <img src="/img/testimonials/user1.jpg" alt="User" class="w-12 h-12 rounded-full mr-4">
+            <div>
+              <h4 class="font-semibold">Rahul Sharma</h4>
+              <div class="flex">
+                <% for(let i=0; i < 5; i++) { %>
+                  <i class="fas fa-star <%= i < 5 ? 'text-yellow-400' : 'text-gray-300' %> text-sm"></i>
                   <% } %>
-                </div>
-                <div class="flex items-center">
-                  <% for(let i = 0; i < 5; i++) { %>
-                    <i class="fas fa-star <%= i < Math.round(book.rating) ? 'text-yellow-400' : 'text-gray-300' %> text-sm"></i>
-                  <% } %>
-                </div>
               </div>
             </div>
-          </a>
+          </div>
+          <p class="text-gray-600">"I love the second-hand marketplace feature! Found some rare books at amazing prices.
+            The condition details were accurate and shipping was prompt."</p>
         </div>
-      <% }) %>
-    </div>
-  </div>
-</section>
-
-<!-- Testimonials Section -->
-<section class="py-12 bg-white">
-  <div class="container mx-auto px-4">
-    <h2 class="text-3xl font-bold text-center mb-12">What Our Customers Say</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="bg-light p-6 rounded-lg shadow-sm">
-        <div class="flex items-center mb-4">
-          <img src="/img/testimonials/user1.jpg" alt="User" class="w-12 h-12 rounded-full mr-4">
-          <div>
-            <h4 class="font-semibold">Rahul Sharma</h4>
-            <div class="flex">
-              <% for(let i = 0; i < 5; i++) { %>
-                <i class="fas fa-star <%= i < 5 ? 'text-yellow-400' : 'text-gray-300' %> text-sm"></i>
-              <% } %>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="flex items-center mb-4">
+            <img src="/img/testimonials/user2.jpeg" alt="User" class="w-12 h-12 rounded-full mr-4">
+            <div>
+              <h4 class="font-semibold">Priya Patel</h4>
+              <div class="flex">
+                <% for(let i=0; i < 5; i++) { %>
+                  <i class="fas fa-star <%= i < 4 ? 'text-yellow-400' : 'text-gray-300' %> text-sm"></i>
+                  <% } %>
+              </div>
             </div>
           </div>
+          <p class="text-gray-600">"The video reviews helped me choose the perfect book for my book club. The
+            recommendations are spot on and I've discovered many new authors."</p>
         </div>
-        <p class="text-gray-600">"I love the second-hand marketplace feature! Found some rare books at amazing prices. The condition details were accurate and shipping was prompt."</p>
-      </div>
-      <div class="bg-light p-6 rounded-lg shadow-sm">
-        <div class="flex items-center mb-4">
-          <img src="/img/testimonials/user2.jpeg" alt="User" class="w-12 h-12 rounded-full mr-4">
-          <div>
-            <h4 class="font-semibold">Priya Patel</h4>
-            <div class="flex">
-              <% for(let i = 0; i < 5; i++) { %>
-                <i class="fas fa-star <%= i < 4 ? 'text-yellow-400' : 'text-gray-300' %> text-sm"></i>
-              <% } %>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="flex items-center mb-4">
+            <img src="/img/testimonials/user3.jpg" alt="User" class="w-12 h-12 rounded-full mr-4">
+            <div>
+              <h4 class="font-semibold">Amit Kumar</h4>
+              <div class="flex">
+                <% for(let i=0; i < 5; i++) { %>
+                  <i class="fas fa-star <%= i < 5 ? 'text-yellow-400' : 'text-gray-300' %> text-sm"></i>
+                  <% } %>
+              </div>
             </div>
           </div>
+          <p class="text-gray-600">"As a seller, I find the platform very user-friendly. The analytics dashboard helps
+            me track my sales and understand customer preferences."</p>
         </div>
-        <p class="text-gray-600">"The video reviews helped me choose the perfect book for my book club. The recommendations are spot on and I've discovered many new authors."</p>
       </div>
-      <div class="bg-light p-6 rounded-lg shadow-sm">
-        <div class="flex items-center mb-4">
-          <img src="/img/testimonials/user3.jpg" alt="User" class="w-12 h-12 rounded-full mr-4">
-          <div>
-            <h4 class="font-semibold">Amit Kumar</h4>
-            <div class="flex">
-              <% for(let i = 0; i < 5; i++) { %>
-                <i class="fas fa-star <%= i < 5 ? 'text-yellow-400' : 'text-gray-300' %> text-sm"></i>
-              <% } %>
-            </div>
+    </div>
+  </section>
+
+
+  <% if (!user) { %>
+    <!-- Call to Action -->
+    <section class="py-16 bg-primary relative">
+      <!-- Decorative quote marks -->
+      <div class="absolute top-6 left-1/2 transform -translate-x-1/2 opacity-10">
+        <svg width="120" height="120" viewBox="0 0 24 24" fill="#000">
+          <path d="M6 17h3l2-4V7H5v6h3l-2 4zm8 0h3l2-4V7h-6v6h3l-2 4z" />
+        </svg>
+      </div>
+      <div class="container mx-auto px-4 text-center relative z-10">
+
+        <blockquote class="text-xl md:text-2xl italic text-dark mb-8 max-w-3xl mx-auto">
+          "A reader lives a thousand lives before he dies. The man who never reads lives only one."
+          <footer class="text-base font-semibold mt-2">— George R.R. Martin</footer>
+        </blockquote>
+
+        <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Ready to Start Your Journey?</h2>
+        <p class="text-lg text-dark mb-8">Join thousands of book lovers on Bookish today.</p>
+
+        <div class="inline-flex items-center justify-center p-1 bg-white bg-opacity-30 backdrop-blur-sm rounded-lg">
+          <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 p-2">
+            <a href="/buyer/browse"
+              class="bg-dark text-white px-8 py-4 rounded-md hover:bg-opacity-90 transition transform hover:-translate-y-1">Browse
+              Books</a>
+            <a href="/auth/register"
+              class="bg-white text-dark px-8 py-4 rounded-md border border-dark hover:bg-gray-100 transition transform hover:-translate-y-1">Sign
+              Up Now</a>
           </div>
         </div>
-        <p class="text-gray-600">"As a seller, I find the platform very user-friendly. The analytics dashboard helps me track my sales and understand customer preferences."</p>
+
       </div>
-    </div>
-  </div>
-</section>
+      <% } %>
+    </section>
 
-<!-- Call to Action -->
-<section class="py-12 bg-primary">
-  <div class="container mx-auto px-4 text-center">
-    <h2 class="text-3xl font-bold text-dark mb-4">Ready to Start Reading?</h2>
-    <p class="text-lg text-dark mb-8">Join thousands of book lovers on Bookish today.</p>
-    <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-      <a href="/buyer/browse" class="bg-dark text-white px-6 py-3 rounded-md hover:bg-opacity-90 transition">Browse Books</a>
-      <a href="/auth/register" class="bg-white text-dark px-6 py-3 rounded-md border border-dark hover:bg-gray-100 transition">Sign Up Now</a>
-    </div>
-  </div>
-</section>
+    <!-- JavaScript for Modern Carousel -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const carousel = document.getElementById('carousel-inner');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const dotsContainer = document.getElementById('carousel-dots');
+        const carouselLoader = document.getElementById('carousel-loader');
 
-<!-- JavaScript for Auto-Advancing Carousel -->
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const carousel = document.getElementById('carousel-inner');
-    const cards = document.querySelectorAll('.book-card');
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
-    
-    let currentIndex = 0;
-    const cardWidth = 100 / cards.length;
-    
-    // Set initial position
-    updateCarousel();
-    
-    // Auto advance every 8 seconds
-    const interval = setInterval(() => {
-      currentIndex = (currentIndex + 1) % cards.length;
-      updateCarousel();
-    }, 8000);
-    
-    // Previous button
-    prevBtn.addEventListener('click', () => {
-      currentIndex = (currentIndex - 1 + cards.length) % cards.length;
-      updateCarousel();
-      resetInterval();
-    });
-    
-    // Next button
-    nextBtn.addEventListener('click', () => {
-      currentIndex = (currentIndex + 1) % cards.length;
-      updateCarousel();
-      resetInterval();
-    });
-    
-    function updateCarousel() {
-      // Remove active class from all cards
-      cards.forEach(card => card.classList.remove('active'));
-      
-      // Add active class to current card
-      cards[currentIndex].classList.add('active');
-      
-      // Calculate translation
-      const translateX = -currentIndex * (100 / (cards.length / 4));
-      carousel.style.transform = `translateX(${translateX}%)`;
-    }
-    
-    function resetInterval() {
-      clearInterval(interval);
-      setInterval(() => {
-        currentIndex = (currentIndex + 1) % cards.length;
-        updateCarousel();
-      }, 8000);
-    }
-  });
-</script>
+        // Check if all essential elements for this specific carousel exist
+        if (!carousel || !prevBtn || !nextBtn || !dotsContainer) {
+          console.error("Missing carousel elements");
+          return; // Exit if essential elements are missing
+        }
 
-<%- include('partials/footer') %>
+        // Get original slides
+        const slides = Array.from(carousel.children);
+        const totalSlides = slides.length;
 
+        if (totalSlides === 0) {
+          console.error("No slides found");
+          return; // Exit if no slides
+        }
+
+        // Disable buttons while initializing
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+
+        // Simple carousel implementation
+        let currentIndex = 0;
+        let visibleSlides = getVisibleSlideCount();
+        let centerIndex = Math.floor(visibleSlides / 2);
+        let isTransitioning = false;
+
+        // Create clones for conveyor belt effect
+        function setupConveyor() {
+          // Remove any existing clones
+          document.querySelectorAll('.clone-slide').forEach(clone => clone.remove());
+
+          // Add clones at the end - use more than needed to prevent any chance of running out
+          for (let i = 0; i < visibleSlides * 3; i++) {
+            const sourceIndex = i % totalSlides;
+            const clone = slides[sourceIndex].cloneNode(true);
+            clone.classList.add('clone-slide');
+            carousel.appendChild(clone);
+          }
+
+          // Add clones at the beginning (in reverse order) - also use more than needed
+          for (let i = totalSlides - 1; i >= totalSlides - (visibleSlides * 3); i--) {
+            const sourceIndex = (i + totalSlides) % totalSlides; // Handle negative indices
+            const clone = slides[sourceIndex].cloneNode(true);
+            clone.classList.add('clone-slide');
+            carousel.insertBefore(clone, carousel.firstChild);
+          }
+
+          // Adjust starting position to show real slides initially
+          currentIndex = visibleSlides * 2; // Start farther from the edge to avoid edge cases
+        }
+
+        function getVisibleSlideCount() {
+          const screenWidth = window.innerWidth;
+          if (screenWidth < 640) return 3; // Show 3 on mobile - 1 center, 2 partials
+          if (screenWidth < 768) return 3;
+          if (screenWidth < 1024) return 5; // Show 5 on tablets - 1 center, 4 partials
+          return 5; // Max 5 on large screens
+        }
+
+        // Initialize slides width and center
+        function initializeCarousel() {
+          setupConveyor();
+
+          // Set width for all slides (original + clones)
+          const allSlides = carousel.children;
+          const slideWidth = 100 / visibleSlides;
+
+          Array.from(allSlides).forEach(slide => {
+            slide.style.width = `${slideWidth}%`;
+            slide.classList.remove('center');
+          });
+
+          // Position at first real slide (after clones)
+          updateCarouselPosition(false);
+          // Ensure center card is highlighted immediately
+          updateCenterSlide();
+          updatePagination();
+
+          // Show carousel and enable buttons after initialization
+          setTimeout(() => {
+            if (carouselLoader) carouselLoader.style.display = 'none';
+            prevBtn.disabled = false;
+            nextBtn.disabled = false;
+          }, 100);
+        }
+
+        function updateCarouselPosition(animate = true) {
+          const slideWidth = 100 / visibleSlides;
+          const translateX = -currentIndex * slideWidth;
+
+          // Always make sure we set the correct transition duration
+          carousel.style.transition = animate ? 'transform 400ms ease-in-out' : 'none';
+          carousel.style.transform = `translateX(${translateX}%)`;
+        }
+
+        function updateCenterSlide() {
+          // Remove center class from all slides
+          const allSlides = carousel.children;
+          Array.from(allSlides).forEach(slide => {
+            slide.classList.remove('center');
+          });
+
+          // Add center class to current center slide
+          const centerSlideIndex = currentIndex + centerIndex;
+          if (allSlides[centerSlideIndex]) {
+            allSlides[centerSlideIndex].classList.add('center');
+          }
+        }
+
+        function updatePagination() {
+          // Clear existing dots
+          while (dotsContainer.firstChild) {
+            dotsContainer.removeChild(dotsContainer.firstChild);
+          }
+
+          // Create new dots
+          for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('carousel-dot');
+
+            // Calculate which original slide is at center position
+            const offset = visibleSlides * 2; // Offset due to clones at beginning
+            const normalizedIndex = (currentIndex - offset) % totalSlides;
+            const activeIndex = normalizedIndex >= 0 ? normalizedIndex : normalizedIndex + totalSlides;
+
+            if (i === activeIndex) dot.classList.add('active');
+
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+          }
+        }
+
+        function goToSlide(index) {
+          if (isTransitioning) return;
+
+          isTransitioning = true;
+
+          // Account for clones at the beginning
+          const offset = visibleSlides * 2;
+          currentIndex = index + offset;
+
+          // Update center highlight before animation
+          updateCenterSlide();
+          updateCarouselPosition(true);
+          updatePagination();
+          resetInterval();
+
+          // Clear transition lock after animation completes
+          setTimeout(() => {
+            isTransitioning = false;
+          }, 500);
+        }
+
+        function nextSlide() {
+          if (isTransitioning) return;
+
+          isTransitioning = true;
+
+          currentIndex++;
+
+          // Update center highlight before animation
+          updateCenterSlide();
+          updateCarouselPosition(true);
+          checkForLooping();
+
+          // Clear transition lock after animation completes
+          setTimeout(() => {
+            isTransitioning = false;
+          }, 500);
+        }
+
+        function prevSlide() {
+          if (isTransitioning) return;
+
+          isTransitioning = true;
+
+          currentIndex--;
+
+          // Update center highlight before animation
+          updateCenterSlide();
+          updateCarouselPosition(true);
+          checkForLooping();
+
+          // Clear transition lock after animation completes
+          setTimeout(() => {
+            isTransitioning = false;
+          }, 500);
+        }
+
+        // Check if we need to loop (when we've scrolled into clone territory)
+        function checkForLooping() {
+          // Listen for the end of the current transition
+          const onTransitionEnd = () => {
+            handleLooping();
+            carousel.removeEventListener('transitionend', onTransitionEnd);
+          };
+
+          carousel.addEventListener('transitionend', onTransitionEnd, { once: true });
+          updatePagination();
+
+          // Safety timeout in case transitionend doesn't fire
+          clearTimeout(window.loopingSafetyTimeout);
+          window.loopingSafetyTimeout = setTimeout(() => {
+            handleLooping();
+          }, 450); // Slightly longer than transition duration
+        }
+
+        function handleLooping() {
+          // Clear safety timeout since we're handling the transition now
+          clearTimeout(window.loopingSafetyTimeout);
+
+          const minSafeIndex = visibleSlides;
+          const maxSafeIndex = (visibleSlides * 2) + totalSlides;
+
+          // If we've moved too close to either edge of the clone buffer
+          if (currentIndex < minSafeIndex || currentIndex >= maxSafeIndex) {
+            // Calculate the equivalent position within the safe zone
+            const offset = visibleSlides * 2;
+            const normalizedIndex = (currentIndex - offset) % totalSlides;
+            const safeIndex = normalizedIndex >= 0 ?
+              normalizedIndex + offset :
+              normalizedIndex + offset + totalSlides;
+
+            // Instant jump without animation
+            currentIndex = safeIndex;
+            updateCarouselPosition(false);
+
+            // Make sure center status is preserved
+            requestAnimationFrame(() => {
+              updateCenterSlide();
+            });
+          }
+        }
+
+        // Set up event listeners
+        prevBtn.addEventListener('click', () => {
+          if (isTransitioning) return;
+          prevSlide();
+          resetInterval();
+        });
+
+        nextBtn.addEventListener('click', () => {
+          if (isTransitioning) return;
+          nextSlide();
+          resetInterval();
+        });
+
+        // Touch support
+        let touchStartX = 0;
+
+        carousel.addEventListener('touchstart', e => {
+          if (isTransitioning) return;
+          touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        carousel.addEventListener('touchend', e => {
+          if (isTransitioning) return;
+
+          const touchEndX = e.changedTouches[0].screenX;
+          const diff = touchEndX - touchStartX;
+
+          if (diff > 50) {
+            prevSlide();
+            resetInterval();
+          } else if (diff < -50) {
+            nextSlide();
+            resetInterval();
+          }
+        }, { passive: true });
+
+        // Auto-rotate with safety checks
+        let autoRotateInterval;
+
+        function startAutoRotation() {
+          clearInterval(autoRotateInterval);
+          autoRotateInterval = setInterval(() => {
+            // Only rotate if not in middle of transition and carousel is visible
+            if (!isTransitioning) {
+              const rect = carousel.getBoundingClientRect();
+              const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+
+              if (isVisible) {
+                nextSlide();
+              }
+            }
+          }, 6000);
+        }
+
+        function resetInterval() {
+          startAutoRotation();
+        }
+
+        // Listen for visibility changes
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) {
+            clearInterval(autoRotateInterval);
+          } else {
+            startAutoRotation();
+          }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+          const newVisibleSlides = getVisibleSlideCount();
+          if (newVisibleSlides !== visibleSlides) {
+            visibleSlides = newVisibleSlides;
+            centerIndex = Math.floor(visibleSlides / 2);
+            initializeCarousel();
+          }
+        });
+
+        // Initialize the carousel
+        initializeCarousel();
+        startAutoRotation();
+      });
+    </script>
+
+    <%- include('partials/footer') %>

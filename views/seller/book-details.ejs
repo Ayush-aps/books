@@ -1,0 +1,123 @@
+<%- include('../partials/header') %>
+<main class="pb-16">
+<div class="container mx-auto px-4">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold">Book Details</h1>
+    <a href="/seller/inventory" class="text-primary hover:text-dark">
+      <i class="fas fa-arrow-left mr-1"></i> Back to Inventory
+    </a>
+  </div>
+
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Book Cover -->
+      <div class="flex flex-col items-center">
+        <img 
+          src="<%= book.coverImage %>" 
+          alt="<%= book.title %>" 
+          class="w-64 h-96 object-cover rounded-lg shadow-lg mb-4"
+        >
+        <div class="flex space-x-4 mt-4">
+          <a 
+            href="/seller/edit/<%= book._id %>" 
+            class="px-4 py-2 bg-primary text-white rounded-md hover:bg-dark transition-colors"
+          >
+            <i class="fas fa-edit mr-2"></i> Edit Book
+          </a>
+          <form action="/seller/delete/<%= book._id %>" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this book?')">
+            <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
+              <i class="fas fa-trash-alt mr-2"></i> Delete Book
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Book Information -->
+      <div class="space-y-6">
+        <div>
+          <h2 class="text-2xl font-bold text-gray-900"><%= book.title %></h2>
+          <p class="text-lg text-gray-600">by <%= book.author %></p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <h3 class="text-sm font-medium text-gray-500">ISBN</h3>
+            <p class="mt-1 text-gray-900"><%= book.isbn %></p>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-gray-500">Publisher</h3>
+            <p class="mt-1 text-gray-900"><%= book.publisher %></p>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-gray-500">Published Date</h3>
+            <p class="mt-1 text-gray-900"><%= book.publishedDate ? new Date(book.publishedDate).toLocaleDateString() : 'Not specified' %></p>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-gray-500">Language</h3>
+            <p class="mt-1 text-gray-900"><%= book.language || 'Not specified' %></p>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-gray-500">Page Count</h3>
+            <p class="mt-1 text-gray-900"><%= book.pageCount || 'Not specified' %></p>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-gray-500">Condition</h3>
+            <p class="mt-1">
+              <% if (book.condition === 'used') { %>
+                <span class="bg-amber-100 text-amber-800 px-2 py-1 rounded-full text-sm">Used</span>
+              <% } else { %>
+                <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm">New</span>
+              <% } %>
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-sm font-medium text-gray-500">Genres</h3>
+          <div class="mt-2 flex flex-wrap gap-2">
+            <% book.genres.forEach(genre => { %>
+              <span class="bg-gray-100 text-gray-800 px-2 py-1 rounded-full text-sm">
+                <%= genre %>
+              </span>
+            <% }) %>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-sm font-medium text-gray-500">Description</h3>
+          <p class="mt-2 text-gray-900 whitespace-pre-line"><%= book.description %></p>
+        </div>
+
+        <div class="border-t pt-6">
+          <h3 class="text-lg font-medium text-gray-900 mb-4">Pricing & Stock</h3>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <h4 class="text-sm font-medium text-gray-500">Regular Price</h4>
+              <p class="mt-1 text-2xl font-bold text-gray-900">₹<%= book.price %></p>
+            </div>
+            <div>
+              <h4 class="text-sm font-medium text-gray-500">Discount Price</h4>
+              <p class="mt-1 text-2xl font-bold text-primary">₹<%= book.discountPrice || book.price %></p>
+            </div>
+            <div>
+              <h4 class="text-sm font-medium text-gray-500">Stock</h4>
+              <p class="mt-1 text-2xl font-bold text-gray-900"><%= book.stock %></p>
+            </div>
+            <div>
+              <h4 class="text-sm font-medium text-gray-500">Status</h4>
+              <p class="mt-1">
+                <% if (book.isAvailable) { %>
+                  <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm">Available</span>
+                <% } else { %>
+                  <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-sm">Not Available</span>
+                <% } %>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+<%- include('../partials/footer') %> 

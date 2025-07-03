@@ -102,7 +102,10 @@
           
           <div class="flex space-x-4">
             <button type="submit" class="bg-primary text-dark px-6 py-3 rounded-md hover:bg-opacity-90 transition flex-grow">
-              <i class="fas fa-shopping-cart mr-2"></i> Add to Cart
+              <i class="fas fa-shopping-cart mr-2"></i> Add to Cart    
+            </button>
+            <button type="button" id="add-to-library" class="bg-indigo-600 text-white px-6 py-3 rounded-md hover:bg-indigo-700 transition flex-grow">
+              <i class="fas fa-book mr-2"></i> Add to Library
             </button>
             <button type="button" class="bg-white text-dark px-4 py-3 rounded-md border border-dark hover:bg-gray-100 transition">
               <i class="far fa-heart"></i>
@@ -164,27 +167,38 @@
   <!-- Recommended Books -->
   <div class="mt-8">
     <h3 class="text-2xl font-bold mb-4">You May Also Like</h3>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
       <% recommendedBooks.forEach(book => { %>
-        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+        <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden h-full relative book-card">
           <a href="/buyer/book/<%= book._id %>">
-            <img src="<%= book.coverImage %>" alt="<%= book.title %>" class="w-full h-56 object-cover">
-            <div class="p-4">
-              <h3 class="text-lg font-semibold mb-1 truncate"><%= book.title %></h3>
-              <p class="text-gray-600 mb-2"><%= book.author %></p>
-              <div class="flex justify-between items-center">
-                <div>
-                  <span class="text-lg font-bold">₹<%= book.discountPrice || book.price %></span>
-                  <% if (book.discountPrice && book.discountPrice < book.price) { %>
-                    <span class="text-sm text-gray-500 line-through ml-1">₹<%= book.price %></span>
-                  <% } %>
-                </div>
-                <% if (book.condition === 'used') { %>
-                  <span class="bg-amber-100 text-amber-800 text-xs px-2 py-1 rounded-full">Used</span>
-                <% } %>
-              </div>
+            <div class="relative pb-[140%]">
+              <img src="<%= book.coverImage %>" alt="<%= book.title %>" class="absolute inset-0 w-full h-full object-cover">
+              <% if (book.condition === 'used') { %>
+                <span class="absolute top-2 right-2 bg-amber-100 text-amber-800 text-xs px-2 py-1 rounded-full">Used</span>
+              <% } %>
             </div>
           </a>
+          <div class="p-3">
+            <h3 class="text-sm font-medium line-clamp-2 mb-1 h-10"><%= book.title %></h3>
+            <p class="text-xs text-blue-600 mb-2 line-clamp-1"><%= book.author %></p>
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex flex-col">
+                <span class="text-sm font-bold">₹<%= book.discountPrice || book.price %></span>
+                <% if (book.discountPrice && book.discountPrice < book.price) { %>
+                  <div class="flex items-center gap-1">
+                    <span class="text-xs text-gray-500 line-through">₹<%= book.price %></span>
+                    <span class="text-xs text-green-600"><%= Math.round((book.price - book.discountPrice) / book.price * 100) %>% off</span>
+                  </div>
+                <% } %>
+              </div>
+              <button class="text-gray-400 hover:text-red-500 transition-colors">
+                <i class="far fa-heart"></i>
+              </button>
+            </div>
+            <button class="w-full bg-gray-800 hover:bg-gray-700 text-white text-xs font-medium py-1.5 rounded-md transition-colors">
+              Add to Cart
+            </button>
+          </div>
         </div>
       <% }) %>
     </div>
@@ -196,7 +210,19 @@
     const quantityInput = document.getElementById('quantity');
     const decreaseBtn = document.getElementById('decrease-qty');
     const increaseBtn = document.getElementById('increase-qty');
-    const maxStock =  book.stock ;
+    const maxStock = <%= book.stock %>; // Fixed: Use template literal
+    const addToLibraryBtn = document.getElementById('add-to-library');
+
+    if (addToLibraryBtn) {
+      addToLibraryBtn.addEventListener('click', function() {
+        // Create a form to submit
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = `/library/add/<%= book._id %>`;
+        document.body.appendChild(form);
+        form.submit();
+      });
+    }
     
     decreaseBtn.addEventListener('click', function() {
       let currentValue = parseInt(quantityInput.value);

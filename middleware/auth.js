@@ -8,13 +8,13 @@
  * @param {Object} res - Express response object
  * @param {Function} next - Express next middleware function
  */
-exports.ensureAuthenticated = (req, res, next) => {
+module.exports.ensureAuthenticated = function(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-  req.flash("error_msg", "Please log in to access this resource")
-  res.redirect("/auth/login")
-}
+  req.flash('error_msg', 'Please log in to view this resource');
+  res.redirect('/auth/login');
+};
 
 /**
  * Ensures user has buyer role
@@ -22,13 +22,24 @@ exports.ensureAuthenticated = (req, res, next) => {
  * @param {Object} res - Express response object
  * @param {Function} next - Express next middleware function
  */
-exports.ensureBuyer = (req, res, next) => {
-  if (req.isAuthenticated() && req.user.role === "buyer") {
+module.exports.ensureBuyer = function(req, res, next) {
+  if (req.isAuthenticated() && req.user.role === 'buyer') {
     return next();
   }
-  req.flash("error_msg", "You are not authorized to access this resource")
-  res.redirect("/")
-}
+  
+  if (req.isAuthenticated()) {
+    if (req.user.role === 'seller') {
+      req.flash('error_msg', 'This section is only accessible to buyers. Please use the seller dashboard to manage your books.');
+      res.redirect('/');
+    } else if (req.user.role === 'admin') {
+      req.flash('error_msg', 'This section is only accessible to buyers. Please use the admin dashboard to manage the platform.');
+      res.redirect('/');
+    }
+  } else {
+    req.flash('error_msg', 'Please log in as a buyer to access this section.');
+    res.redirect('/');
+  }
+};
 
 /**
  * Ensures user has seller role
@@ -36,13 +47,13 @@ exports.ensureBuyer = (req, res, next) => {
  * @param {Object} res - Express response object
  * @param {Function} next - Express next middleware function
  */
-exports.ensureSeller = (req, res, next) => {
-  if (req.isAuthenticated() && req.user.role === "seller") {
+module.exports.ensureSeller = function(req, res, next) {
+  if (req.isAuthenticated() && req.user.role === 'seller') {
     return next();
   }
-  req.flash("error_msg", "You are not authorized to access this resource")
-  res.redirect("/")
-}
+  req.flash('error_msg', 'Access denied. This page is only for sellers.');
+  res.redirect('/seller/dashboard');
+};
 
 /**
  * Ensures user has admin role
@@ -50,24 +61,33 @@ exports.ensureSeller = (req, res, next) => {
  * @param {Object} res - Express response object
  * @param {Function} next - Express next middleware function
  */
-exports.ensureAdmin = (req, res, next) => {
-  if (req.isAuthenticated() && req.user.role === "admin") {
+module.exports.ensureAdmin = function(req, res, next) {
+  if (req.isAuthenticated() && req.user.role === 'admin') {
     return next();
   }
-  req.flash("error_msg", "You are not authorized to access this resource")
-  res.redirect("/")
-}
+  req.flash('error_msg', 'Access denied. This page is only for admins.');
+  res.redirect('/admin/dashboard');
+};
 
 /**
- * Ensures user is not authenticated (for login/register pages)
+ * Forwards authenticated users away from the login page
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  * @param {Function} next - Express next middleware function
  */
-exports.ensureNotAuthenticated = (req, res, next) => {
+module.exports.forwardAuthenticated = function(req, res, next) {
   if (!req.isAuthenticated()) {
     return next();
   }
-  res.redirect("/")
-}
+  // Redirect based on user role
+  if (req.user.role === 'buyer') {
+    res.redirect('/buyer/dashboard');
+  } else if (req.user.role === 'seller') {
+    res.redirect('/seller/dashboard');
+  } else if (req.user.role === 'admin') {
+    res.redirect('/admin/dashboard');
+  } else {
+    res.redirect('/');
+  }
+};
 

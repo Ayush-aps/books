@@ -88,9 +88,11 @@
                   <div class="text-sm text-gray-900"><%= book.isbn %></div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-sm text-gray-900">₹<%= book.price %></div>
                   <% if (book.discountPrice && book.discountPrice < book.price) { %>
+                    <div class="text-sm text-gray-900">₹<%= book.discountPrice %></div>
                     <div class="text-xs text-gray-500 line-through">₹<%= book.price %></div>
+                  <% } else { %>
+                    <div class="text-sm text-gray-900">₹<%= book.price %></div>
                   <% } %>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
@@ -126,7 +128,7 @@
                         <i class="fas fa-trash-alt"></i>
                       </button>
                     </form>
-                    <a href="/buyer/book/<%= book._id %>" class="text-gray-600 hover:text-dark">
+                    <a href="/seller/book/<%= book._id %>" class="text-gray-600 hover:text-dark">
                       <i class="fas fa-eye"></i>
                     </a>
                   </div>
