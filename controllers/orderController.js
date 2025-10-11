@@ -27,7 +27,7 @@ exports.createOrder = asyncHandler(async (req, res, next) => {
 
 // @desc    Get all orders for logged in user (Buyer)
 // @route   GET /api/orders/my-orders
-// @access  Private (Buyer)
+// @access  Private (Buyer) // auth
 exports.getMyOrders = asyncHandler(async (req, res, next) => {
   const orders = await Order.find({ buyer: req.user.id })
     .populate('items.book', 'title author coverImage')
