@@ -39,7 +39,7 @@ const CartSchema = new mongoose.Schema({
   },
 })
 
-// Calculate total amount before saving
+// Calculate total amount before saving so as to maintain consistency
 CartSchema.pre("save", function (next) {
   this.totalAmount = this.items.reduce((total, item) => {
     return total + item.price * item.quantity
