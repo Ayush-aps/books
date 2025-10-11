@@ -40,6 +40,10 @@ const ComplaintSchema = new mongoose.Schema({
     enum: ['contact_form', 'complaint_form'],
     default: 'complaint_form'
   },
+  //   guestInfo: {
+  //   name: String,
+  //   email: String
+  // },
   createdAt: {
     type: Date,
     default: Date.now
