@@ -41,7 +41,7 @@ const ComplaintSchema = new mongoose.Schema({
     default: 'complaint_form'
   },
   //   guestInfo: {
-  //   name: String,
+  //   name: int,
   //   email: String
   // },
   createdAt: {
