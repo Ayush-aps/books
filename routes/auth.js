@@ -20,6 +20,16 @@ router.get("/register", forwardAuthenticated, (req, res) => {
   })
 })
 
+// router.post("/login", forwardAuthenticated, (req, res, next) => {
+//   passport.authenticate("local", {
+//     successRedirect: "/",
+//     failureRedirect: "/auth/login",
+//     failureFlash: true,
+//   })(req, res, next)
+// })
+
+
+
 /**
  * @route   POST /auth/register
  * @desc    Register a new user
