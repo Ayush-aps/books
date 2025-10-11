@@ -124,6 +124,8 @@ router.get('/buyer/order/:id', ensureAuthenticated, ensureBuyer, async (req, res
     //   shippingAddress: order.shippingAddress,
     //   orderDate: order.orderDate,
     //   deliveryDate: order.deliveryDate
+    // recieveDate: order.recieveDate
+    // confirmOdr = order.confirmOdr
     // }); // Debug log
 
 module.exports = router;
