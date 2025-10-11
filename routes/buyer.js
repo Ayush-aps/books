@@ -219,6 +219,17 @@ router.get("/cart", ensureAuthenticated, ensureBuyer, async (req, res) => {
   }
 })
 
+
+// const recommendedBooks = await Book.find({
+//       _id: { $ne: book._id },
+//       genres: { $in: book.genres },
+//       isApproved: true,
+//       isAvailable: true,
+//     })
+
+
+
+
 /**
  * @route   POST /buyer/cart/add/:bookId
  * @desc    Add book to cart
