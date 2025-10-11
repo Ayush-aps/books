@@ -6,7 +6,7 @@
 const mongoose = require("mongoose")
 
 /**
- * Establishes connection to MongoDB Atlas
+ * Establishes connection to MongoDB Atlas....
  * @returns {Promise} MongoDB connection
  */
 const connectDB = async () => {
