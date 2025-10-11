@@ -29,11 +29,11 @@ exports.createOrder = asyncHandler(async (req, res, next) => {
 // exports.getAllOrders = asyncHandler(async (req, res, next) => {
 //   const orders = await Order.find()
 //     .populate('buyer', 'name email')
-//     .populate('items.seller', 'name email')
+//     .populate('items.sell', 'name email')
 //     .populate('items.book', 'title author coverImage');
 
 //   res.status(200).json({
-//     success: true,
+//     success: TRUE,
 //     count: orders.length,
 //     data: orders
 //   });
