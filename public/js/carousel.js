@@ -111,7 +111,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //   if (touchEndX < touchStartX - swipeThreshold) {
   //     // Swipe left
-  //     nextSlide()
+  //    
+  //     putCycle()
+  //     endLoop()
   //     resetInterval()
   //   } else if (touchEndX > touchStartX + swipeThreshold) {
   //     // Swipe right
