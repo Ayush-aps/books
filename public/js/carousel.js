@@ -105,6 +105,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 8000)
   }
 
+
+  //   function handleSwipe() {
+  //   const swipeThreshold = 50
+
+  //   if (touchEndX < touchStartX - swipeThreshold) {
+  //     // Swipe left
+  //     nextSlide()
+  //     resetInterval()
+  //   } else if (touchEndX > touchStartX + swipeThreshold) {
+  //     // Swipe right
+  //     prevSlide()
+  //     resetInterval()
+  //   }
+  // }
+
   // Adjust for responsive design
   window.addEventListener("resize", () => {
     // Recalculate visible cards based on screen width
