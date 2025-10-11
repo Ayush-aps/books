@@ -150,7 +150,7 @@ router.get('/watch/:id', ensureAuthenticated, async (req, res) => {
       relatedVideos,
       user: req.user
     });
-  } catch (err) {
+  } catch (err) { //code changed for the catch part
     console.error('Error watching video:', err);
     req.flash('error_msg', 'Error loading video');
     return res.redirect('/buyer/video-feed');
