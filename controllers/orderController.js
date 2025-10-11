@@ -25,6 +25,21 @@ exports.createOrder = asyncHandler(async (req, res, next) => {
   });
 });
 
+
+// exports.getAllOrders = asyncHandler(async (req, res, next) => {
+//   const orders = await Order.find()
+//     .populate('buyer', 'name email')
+//     .populate('items.seller', 'name email')
+//     .populate('items.book', 'title author coverImage');
+
+//   res.status(200).json({
+//     success: true,
+//     count: orders.length,
+//     data: orders
+//   });
+// });
+
+
 // @desc    Get all orders for logged in user (Buyer)
 // @route   GET /api/orders/my-orders
 // @access  Private (Buyer) // auth
