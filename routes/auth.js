@@ -23,7 +23,7 @@ router.get("/register", forwardAuthenticated, (req, res) => {
 // router.post("/login", forwardAuthenticated, (req, res, next) => {
 //   passport.authenticate("local", {
 //     successRedirect: "/",
-//     failureRedirect: "/auth/login",
+//     failureRedirect: "/api/auth/login",
 //     failureFlash: true,
 //   })(req, res, next)
 // })
