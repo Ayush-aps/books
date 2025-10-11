@@ -72,8 +72,8 @@ router.get("/browse", ensureAuthenticated, async (req, res) => {
       const sortOrder = sort === "price-asc" ? 1 : -1;
 
     //  const discountPriceQuery = { discountPrice: { $exists: true } }
-    //   if (minPrice) discountPriceQuery.discountPrice = { $gte: Number(minPrice) }
-    //   if (maxPrice) discountPriceQuery.discountPrice = { ...discountPriceQuery.discountPrice, $lte: Number(maxPrice) }
+    //   if (min) discountPriceQuery.discountPrice = { $gte: Number(min) }
+    //   if (max) discountPriceQuery.discountPrice = { ...discountPriceQuery.discountPrice, $lte: Number(max) }
       
     //   priceQuery.push(regularPriceQuery, discountPriceQuery)
     //   query.$or = priceQuery
