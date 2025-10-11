@@ -119,4 +119,11 @@ router.get('/buyer/order/:id', ensureAuthenticated, ensureBuyer, async (req, res
   }
 });
 
+    // console.log('Order found:', {
+    //   id: order._id,
+    //   shippingAddress: order.shippingAddress,
+    //   orderDate: order.orderDate,
+    //   deliveryDate: order.deliveryDate
+    // }); // Debug log
+
 module.exports = router;
