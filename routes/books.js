@@ -70,6 +70,17 @@ router.get("/browse", ensureAuthenticated, async (req, res) => {
     if (sort === "price-asc" || sort === "price-desc") {
       // For price sorting, we need to use aggregation to sort by effective price
       const sortOrder = sort === "price-asc" ? 1 : -1;
+
+    //  const discountPriceQuery = { discountPrice: { $exists: true } }
+    //   if (minPrice) discountPriceQuery.discountPrice = { $gte: Number(minPrice) }
+    //   if (maxPrice) discountPriceQuery.discountPrice = { ...discountPriceQuery.discountPrice, $lte: Number(maxPrice) }
+      
+    //   priceQuery.push(regularPriceQuery, discountPriceQuery)
+    //   query.$or = priceQuery
+    // }
+
+
+
       
       // Create aggregation pipeline
       const pipeline = [
