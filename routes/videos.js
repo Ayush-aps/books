@@ -50,11 +50,11 @@ router.get('/upload', ensureAuthenticated, async (req, res) => {
       user: req.user,
       books
     });
-  } catch (err) {
-    console.error('Error in upload form:', err);
-    req.flash('error_msg', 'Error loading upload form');
-    return res.redirect('/buyer/video-feed');
-  }
+  } catch (err) {  //the changed part
+  console.error('Video error:', err);
+  req.flash('error_msg', 'Failed to load video');
+  res.redirect('/buyer/video-feed');
+}
 });
 
 // Process video upload
