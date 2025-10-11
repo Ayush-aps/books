@@ -1,5 +1,5 @@
 /**
- * Authentication middleware for role-based access control
+ * Authentication middleware for role-based access control, used to protect routes so that a user who isn't logged in cannot access the rsources.
  */
 
 /**
@@ -40,6 +40,23 @@ module.exports.ensureBuyer = function(req, res, next) {
     res.redirect('/');
   }
 };
+
+// module.exports.forwardAuthenticated = function(req, res, next) {
+//   if (!req.isAuthenticated()) {
+//     return next();
+//   }
+//   // Redirect based on user role
+//   if (req.user.role === 'buyer') {
+//     res.redirect('/buyer/dashboard');
+//   } else if (req.user.role === 'seller') {
+//     res.redirect('/seller/dashboard');
+//   } else if (req.user.role === 'admin') {
+//     res.redirect('/admin/dashboard');
+//   } else {
+//     res.redirect('/');
+//   }
+// };
+
 
 /**
  * Ensures user has seller role
