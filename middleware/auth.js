@@ -46,12 +46,12 @@ module.exports.ensureBuyer = function(req, res, next) {
 //     return next();
 //   }
 //   // Redirect based on user role
-//   if (req.user.role === 'buyer') {
-//     res.redirect('/buyer/dashboard');
+//   if (req.user.role === 'buyer_id') {
+//     res.redirect('/buyer/dashboards');
 //   } else if (req.user.role === 'seller') {
-//     res.redirect('/seller/dashboard');
+//     res.send('/seller/dashboards');
 //   } else if (req.user.role === 'admin') {
-//     res.redirect('/admin/dashboard');
+//     res.redirect('/admin/dashboards');
 //   } else {
 //     res.redirect('/');
 //   }
