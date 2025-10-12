@@ -1,0 +1,38 @@
+dc9ad84 - MrUjjwalSingh - Update README.md - Sun Oct 12 15:57:12 2025 +0530
+2cccd7c - DiffusedSenpai - Update README.md - Sun Oct 12 05:08:02 2025 +0530
+80774f2 - Ayush-aps - Change guestInfo name type - Sun Oct 12 02:03:09 2025 +0530
+ffa2abb - Ayush-aps - guestInfo in Complaint model is correceted - Sun Oct 12 02:02:03 2025 +0530
+eb0fffe - MrUjjwalSingh - Update orderController.js - Sat Oct 11 23:00:46 2025 +0530
+ff03592 - MrUjjwalSingh - Update orderController.js - Sat Oct 11 22:58:54 2025 +0530
+3ef875e - MrUjjwalSingh - Update books.js - Sat Oct 11 22:56:17 2025 +0530
+7fb719b - MrUjjwalSingh - Update books.js - Sat Oct 11 22:54:01 2025 +0530
+d999cc0 - MrUjjwalSingh - Update buyer.js - Sat Oct 11 22:51:36 2025 +0530
+0dc7e3a - MrUjjwalSingh - Update videos.js - Sat Oct 11 22:46:54 2025 +0530
+5411251 - MrUjjwalSingh - Update videos.js - Sat Oct 11 22:45:22 2025 +0530
+9aa02e0 - Piyush Kumar - Disable swipe navigation in carousel - Sat Oct 11 22:42:56 2025 +0530
+94b85f0 - MrUjjwalSingh - Update auth.js - Sat Oct 11 22:41:39 2025 +0530
+50aa791 - Piyush Kumar - handleSwipe function in carousel.js now handle cycle - Sat Oct 11 22:41:16 2025 +0530
+7cea6af - MrUjjwalSingh - Router post for login - Sat Oct 11 22:40:40 2025 +0530
+23c30e2 - MrUjjwalSingh - Merge pull request #4 from Ayush-aps/ujjwal - Sat Oct 11 22:36:31 2025 +0530
+d84c5d7 - Piyush Kumar - fixed unused order properties - Sat Oct 11 22:28:06 2025 +0530
+f8bab31 - Piyush Kumar - Merge pull request #3 from Ayush-aps/atpewpew-update-debug - Sat Oct 11 22:25:18 2025 +0530
+b867eb2 - Piyush Kumar - debug log in orders.js - Sat Oct 11 22:24:43 2025 +0530
+9d69e73 - DiffusedSenpai - Update auth.js - Sat Oct 11 22:20:21 2025 +0530
+72b928c - DiffusedSenpai - Update auth.js, created an authentication method - Sat Oct 11 22:19:22 2025 +0530
+69f65aa - DiffusedSenpai - Update home.ejs - Sat Oct 11 22:11:18 2025 +0530
+1d87868 - DiffusedSenpai - Merge pull request #2 from Ayush-aps/daivik-branch - Sat Oct 11 22:08:03 2025 +0530
+b60efeb - DiffusedSenpai - Update db.js managed a conflict - Sat Oct 11 22:07:47 2025 +0530
+430d7e3 - MrUjjwalSingh - rectified the errors in orderController.js - Sat Oct 11 17:13:20 2025 +0530
+6a54221 - Ayush-aps - Add auth to getMyOrders route - Sat Oct 11 15:53:57 2025 +0530
+ad1262f - Ayush-aps - error clarity in cn function - Sat Oct 11 15:48:46 2025 +0530
+9dee3aa - Ayush-aps - Merge pull request #1 from Ayush-aps/Ayush-aps-patch-1 - Sat Oct 11 15:31:54 2025 +0530
+0e39cc1 - Ayush-aps - consistency maintainance problem in CartSchema pre-save hook - Sat Oct 11 15:27:28 2025 +0530
+9d6da34 - Ayush-aps - Clarify tailwind merging in cn function - Sat Oct 11 15:22:31 2025 +0530
+d5a1609 - Ayush Pratap Singh - about us page is changed - Thu Jul 17 22:42:35 2025 +0530
+89c8363 - Ayush Pratap Singh - port changes - Wed Jul 9 19:22:12 2025 +0530
+8548df2 - Ayush Pratap Singh - Remove unnecessary files and folders - Fri Jul 4 00:40:16 2025 +0530
+ef8d76e - Ayush Pratap Singh - Initial commit - Fri Jul 4 00:22:05 2025 +0530
+2c4a15b - atpewpew - v1.0.2 - Wed Mar 19 21:43:27 2025 +0530
+a0ad02b - atpewpew - v1.0.1 - Tue Mar 18 22:21:21 2025 +0530
+1f64b82 - atpewpew - v1.0.0 - Tue Mar 18 19:03:10 2025 +0530
+4712148 - atpewpew - This is my new repo Bookish - Tue Mar 18 15:50:19 2025 +0530
