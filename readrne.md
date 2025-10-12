@@ -8,10 +8,13 @@ A full-stack web platform that connects **buyers**, **sellers**, and **administr
 
 * **Repository:** `https://github.com/Ayush-aps/books`
 * **Demo video (Unlisted):** `https://www.youtube.com/watch?v=0gduV02pDyA`
+
+---
+## Metadata
+
+* **Groupid:** 53
+* **Project Title:** Bookish
 * **SPOC / Team lead:** Ayush Pratap Singh — `ayushpratap.s23@iiits.in` — Roll: `S20230010033`
-
-> If any of the links/contacts above should be changed, update them in the placeholders below.
-
 ---
 
 ##  Project Summary
@@ -22,8 +25,6 @@ A full-stack web platform that connects **buyers**, **sellers**, and **administr
 * Seller features: upload/manage books, inventory, order management, analytics.
 * Admin features: user management, content moderation (approve/reject books), system reports, complaint resolution.
 
-(Feature list and per-role responsibilities referenced from the FFSD and mid-review artifacts.) 
-
 ---
 
 ##  Team & Responsibilities
@@ -31,12 +32,10 @@ A full-stack web platform that connects **buyers**, **sellers**, and **administr
 | Name               | Roll Number  | Responsibilities                                              |
 | ------------------ | ------------ | ------------------------------------------------------------- |
 | Ayush Pratap Singh | S20230010033 | Payment gateway, buyer’s library, admin reports, video feed.  |
-| Piyush Kumar       | (add roll)   | Buyer profile, homepage, seller upload, seller dashboard.     |
-| Ujjwal Singh       | (add roll)   | Order tracking, seller inventory, admin moderation.           |
-| Daivik Wadhwani    | (add roll)   | Complaint system, contact page, cart.                         |
-| Gugulothu Nithin   | (add roll)   | Authentication, sessions, shared UI (header/footer).          |
-
-> Please supply missing roll numbers and any preferred email addresses to include here.
+| Piyush Kumar       | S20230010186 | Buyer profile, homepage, seller upload, seller dashboard.     |
+| Ujjwal Singh       | S20230010245 | Order tracking, seller inventory, admin moderation.           |
+| Daivik Wadhwani    | S20230010064 | Complaint system, contact page, cart.                         |
+| Gugulothu Nithin   | S20230010099 | Authentication, sessions, shared UI (header/footer).          |
 
 ---
 
@@ -45,18 +44,15 @@ A full-stack web platform that connects **buyers**, **sellers**, and **administr
 **Frontend**
 
 * EJS templating (server-side rendered pages)
-* HTML5, Vanilla JavaScript
+* HTML5 & JavaScript
 * Tailwind CSS for styling
 
 **Backend**
 
 * Node.js + Express
 * MongoDB (Mongoose ODM)
-* JWT for authentication
-* Cloudinary (image storage)
-* Payment integration (e.g. Razorpay / chosen gateway)
-
-(Tech stack clarified in project artifacts and project metadata.) 
+* Cloudinary
+* Payment integration (e.g. stripe)
 
 ---
 
@@ -77,8 +73,6 @@ bookish/
 └── README.md
 ```
 
-(If your repo uses a `source/` subfolder or `backend/` + `frontend/` split, adapt commands below accordingly.) 
-
 ---
 
 ##  Features (high level)
@@ -87,31 +81,31 @@ bookish/
 
   * Browse & search books, add to cart, checkout (subscription & purchases)
   * Personal library, reading progress, video reviews/feed
-  * Submit & track complaints/support tickets
+  * Submit & track complaints.
   * Profile management (addresses, orders)
+    
 * Seller:
 
   * Upload books with metadata and images
   * Inventory & order management
   * Sales analytics on dashboard
+    
 * Admin:
 
   * Content moderation (approve/reject books)
   * User & role management
   * Reports: users, books, orders, complaints
 
-(Design and demo flows documented in the demo script & mid-review docs.) 
-
 ---
 
-## 🔧 Prerequisites
+## Prerequisites
 
 * Node.js v14+ and npm
 * MongoDB (Local or Atlas)
 * Git
 * (Optional) nodemon for development
-* Cloudinary account (if using image uploads)
-* Payment gateway credentials (if payments implemented)
+* Cloudinary account 
+* Payment gateway credentials
 
 ---
 
@@ -123,18 +117,14 @@ Create a `.env` file in project root (or `backend/`) with the following keys (fi
 # Database
 MONGODB_URI=mongodb+srv://<user>:<pass>@cluster0.mongodb.net/bookishdb
 
-# Auth
-JWT_SECRET=your_jwt_secret_key
-JWT_EXPIRES_IN=7d
-
 # Cloudinary (images)
 CLOUDINARY_CLOUD_NAME=...
 CLOUDINARY_API_KEY=...
 CLOUDINARY_API_SECRET=...
 
-# Payment gateway (example Razorpay)
-RAZORPAY_KEY_ID=...
-RAZORPAY_KEY_SECRET=...
+# Payment gateway (example Stripe)
+Stripe_KEY_ID=...
+Stripe_KEY_SECRET=...
 
 # App
 PORT=4000
@@ -182,8 +172,6 @@ npm start
 http://localhost:4000
 ```
 
-> If your project has `backend/` and `frontend/` subfolders, run `cd backend && npm install && npm start` instead.
-
 ---
 
 ##  Demo flows & testing checklist
@@ -198,14 +186,12 @@ The mid-review demo requires showing these flows — recommend verifying & recor
    * POST `/api/cart` — Add to cart.
    * POST `/api/complaints` — Submit complaint.
 
-(Demo script and timestamps prepared for a ~7-minute video — see `Demo Video Script and Plan`.) 
-
 **Artifacts to collect**
 
 * `network_evidence/` — screenshots of each network request in DevTools.
 * `git-logs.txt` — git commits per author (or screenshots).
 * `test_plan.md` — validated tests and results.
-* `schema.sql` or Mongo dump (if required for submission). 
+* Mongo dump
 
 ---
 
@@ -213,55 +199,26 @@ The mid-review demo requires showing these flows — recommend verifying & recor
 
 * `app.js` — Express entry point; session and middleware setup.
 * `routes/` — routes for books, users, orders, complaints, admin.
-* `controllers/` — actual business logic (bookController, userController, orderController, complaintController).
+* `controllers/` — actual business logic (orderController).
 * `models/` — Mongoose schemas: `User`, `Book`, `Order`, `Complaint`, etc.
 * `views/` — EJS templates and partials (header, footer, dashboards).
 * `public/js/` — client-side form validation, dynamic DOM, AJAX calls (fetch).
 * `config/` — DB connection, cloudinary, payment config.
 
-(Use these locations when you point to code in your demo video.) 
-
----
-
-##  Authentication & Security
-
-* JWT authentication for users, staff, and admin (role-based authorization).
-* Protect API endpoints with middleware (e.g., `userAuth`, `staffAuth`, `adminAuth`).
-* Store sensitive keys in `.env`. Do **not** commit `.env` or secrets to Git.
 
 ---
 
 ## 💳 Payments & Subscriptions
 
-* Payment integration implemented for subscription/purchase flows (example: Razorpay).
-* Ensure `RAZORPAY_*` keys are set in `.env` for live testing.
+* Payment integration implemented for subscription/purchase flows (example: stripe).
+* Ensure `Stripe_*` keys are set in `.env` for live testing.
 
 ---
 
 ##  Status & Roadmap
 
 **Current version:** 1.0 (Mid-review)
-**Status:** Core features implemented as per FFSD; testing & final polish pending. 
-
-**Planned / future enhancements**
-
-* Real-time notifications (Socket.io)
-* PWA / mobile app
-* Redis caching & rate limiting
-* 2FA, email/SMS notifications
-* GPS-based lost item tracking (if applicable)
-* Improved analytics & downloadable reports (PDF/Excel)
-
----
-
-## 🧾 Contribution Guide
-
-1. Fork the repo
-2. Create feature branch: `git checkout -b feature/your-feature`
-3. Commit & push: `git commit -m "feat: description"` then `git push origin feature/your-feature`
-4. Open a Pull Request with description and testing notes
-
-Please add `CONTRIBUTING.md` if you want stricter rules (branch naming, linting, testing).
+**Status:** Core features implemented as per FDFED; testing & final polish pending. 
 
 ---
 
@@ -277,16 +234,9 @@ Please add `CONTRIBUTING.md` if you want stricter rules (branch naming, linting,
 * Open browser console for JS errors.
 * Verify EJS variables passed from server.
 
-**Authentication errors**
-
-* Ensure `JWT_SECRET` matches in `.env`.
-* Clear cookies/localStorage if tokens stale.
-
 ---
 
 ## 📦 Submission artifacts (for mid-review)
-
-Include in your submission ZIP (`group53_bookish_midreview.zip`):
 
 * `/source` — full source code
 * `README_FULL.md` (this file)
@@ -294,10 +244,8 @@ Include in your submission ZIP (`group53_bookish_midreview.zip`):
 * `test_plan.md` — validation & async tests with results
 * `network_evidence/` — screenshots
 * `git-logs.txt`
-* `schema.sql` or Mongo dump
-* `PPT.pdf`, `MidReview-Artifact.pdf`, etc. 
-
-(See Mid Review artifact checklist for exact requirements.) 
+* `Mongo dump`
+* `documenation.pdf` 
 
 ---
 
@@ -306,7 +254,7 @@ Include in your submission ZIP (`group53_bookish_midreview.zip`):
 * **SPOC / Team lead:** Ayush Pratap Singh — `ayushpratap.s23@iiits.in`. Roll: `S20230010033`
 * For issues: open GitHub issues in the repository.
 
----
+p---
 
 ## 🧾 License
 
@@ -316,7 +264,7 @@ This project is released under the **MIT License**.
 
 ## 🎬 Demo Video Timestamps (suggested)
 
-(Use `demo_link.txt` and include these timestamps in the YouTube description.)
+https://www.youtube.com/watch?v=0gduV02pDyA
 
 ```
 0:00  - Title slide & business case
@@ -327,16 +275,12 @@ This project is released under the **MIT License**.
 6:30  - Wrap-up & artifacts location
 ```
 
-(Full script & shotlist available in `Demo Video Script and Plan`.) 
-
 ---
 
-## ✍️ Notes & Placeholders to update
-
-* [ ] Confirm **repo URL** and **demo video URL** if different.
-* [ ] Confirm **entry point** (`app.js` vs `index.js`) and default **PORT**.
-* [ ] Add missing roll numbers & emails for team members.
-* [ ] Replace payment gateway placeholders with the actual provider & env keys.
-* [ ] Add any screenshots or sample API endpoints you want included inline.
-
+## Evidence Locations
+* **Git logs** - gitlogs.txt - https://github.com/Ayush-aps/books/blob/main/git-logs.txt
+* **Network evidences** - Network Evidence Screenshot.pdf - https://github.com/Ayush-aps/books/blob/main/Network%20Evidence%20-Screenshots.pdf
+* **Test Plan** - Test_Plan.pdf - https://github.com/Ayush-aps/books/blob/main/Test_Plan.pdf
+* **Task Assignments** - Task Assignment.md - https://github.com/Ayush-aps/books/blob/main/task_assignment.md
+* **Documentation pdf** - Group 53 Documentation.pdf - https://github.com/Ayush-aps/books/blob/main/Group%2053%20Documentation.pdf
 ---
