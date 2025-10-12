@@ -1,7 +1,12 @@
 # Bookish — Group 53
 
-*Project short:* Bookish is a unified web platform for book buyers, sellers, and administrators. The platform provides role-specific dashboards and features: browsing, subscriptions, personal libraries and progress tracking for buyers; upload, inventory and order management for sellers; and content moderation, reports and user management for admins.
-
+*Project short:* A unified web platform for book buyers, sellers, and administrators.
+Bookish integrates the functionalities of both Amazon Books and Kindle Reader, offering a seamless experience for users to buy, sell, and read books online.
+The platform provides role-specific dashboards and features:
+Buyers can browse, subscribe, maintain personal libraries, and track reading progress.
+Sellers can upload books, manage inventory, and handle orders efficiently.
+Administrators can oversee content moderation, user management, and system-wide reports.
+Bookish aims to bridge the gap between book e-commerce and digital reading platforms, delivering an all-in-one solution for book enthusiasts and vendors alike.
 ---
 
 ## Project meta
@@ -13,8 +18,8 @@
 
   * *Ayush Pratap Singh* — Payment gateway (subscriptions & paperback), Video feed, Buyer’s library, Admin dashboard, System reports.
   * *Piyush Kumar* — Buyer profile & edit, Home page (search/filter), Seller upload, Seller dashboard, Admin user management.
-  * *Ujjwal Singh* — Order tracking, Seller inventory, Admin content moderation.
-  * *Daivik Wadhwani* — Complaint registration & resolution, Contact page, Cart functionality, Seller dashboard (sales & orders).
+  * *Ujjwal Singh* — Order tracking System(for all roles),Seller Dashboard(including stats and analytics),Admin content moderation.
+  * *Daivik Wadhwani* — Complaint registration & resolution, Contact page , Cart functionality , Seller dashboard (sales & orders).
   * *Gugulothu Nithin* — Authentication (register/login/logout), Session management, Header & footer, Contact Us & About pages.
 
 ---
@@ -23,7 +28,7 @@
 
 * *Backend:* Node.js + Express
 * *Frontend:* HTML/CSS + Tailwind + client-side JS
-* *DB:* MongoDB (Mongoose recommended)
+* *DB:* MongoDB (Mongoose ODM)
 * *Other:* Sessions / JWT (depending on code), Payment gateway integration (Razorpay/Stripe/etc. — implemented by team)
 
 ---
