@@ -197,18 +197,18 @@ https://youtu.be/<VIDEO_ID>
 
 ---
 
-## Evidence & artifact locations (what to include in submission zip)
+## Evidence & Artifacts
 
-* /source/ — full front-end + back-end source code.
-* README_FULL.md — this file (finalized).
-* demo_link.txt — video URL + timestamps (Unlisted YouTube preferred).
-* test_plan.md — test cases and results (validation & async).
-* network_evidence/ — screenshots of DevTools Network tab for each async call (suggested filenames below).
-* git-logs.txt — commit history exported or filtered by author (e.g., git log --pretty=format output or screenshots).
-* schema_dump/ — MongoDB dump (mongodump output) or JSON exports via mongoexport.
-* PPT.pdf — slide deck used for presentation (PDF).
-* task_assignment.md + task_assignment.csv — team tasks and spoken lines.
-* SUBMISSION_CHECKLIST.md — checklist confirming all required files are included.
+* [git-logs.txt — full commit history](https://github.com/Ayush-aps/books/blob/main/git-logs.txt)
+
+  ### Latest Commits
+
+ dc9ad84 - MrUjjwalSingh - Update README.md - Sun Oct 12 15:57:12 2025 +0530
+ 2cccd7c - DiffusedSenpai - Update README.md - Sun Oct 12 05:08:02 2025 +0530
+ 80774f2 - Ayush-aps - Change guestInfo name type - Sun Oct 12 02:03:09 2025 +0530
+ 
+...
+
 
 **Suggested filenames for network screenshots (place under network_evidence/):**
 
