@@ -199,6 +199,7 @@ https://youtu.be/<VIDEO_ID>
 
 ## Evidence & Artifacts
 
+** Git Logs Text file for all commits over time
 * [git-logs.txt — full commit history](https://github.com/Ayush-aps/books/blob/main/git-logs.txt)
 
   ### Latest Commits
@@ -207,6 +208,11 @@ https://youtu.be/<VIDEO_ID>
  2cccd7c - DiffusedSenpai - Update README.md - Sun Oct 12 05:08:02 2025 +0530
  80774f2 - Ayush-aps - Change guestInfo name type - Sun Oct 12 02:03:09 2025 +0530
  
+...
+
+** Network Evidence and Screenshots File
+* [network_evidences/screenshots for async calls — file link](https://github.com/Ayush-aps/books/blob/main/Network%20Evidence%20-Screenshots.pdf)
+
 
 
 ## Submission checklist (brief)
