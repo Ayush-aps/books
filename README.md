@@ -207,18 +207,7 @@ https://youtu.be/<VIDEO_ID>
  2cccd7c - DiffusedSenpai - Update README.md - Sun Oct 12 05:08:02 2025 +0530
  80774f2 - Ayush-aps - Change guestInfo name type - Sun Oct 12 02:03:09 2025 +0530
  
-...
 
-
-**Suggested filenames for network screenshots (place under network_evidence/):**
-
-* 01_get_books_GET.png
-* 02_add_to_cart_POST.png
-* 03_submit_complaint_POST.png
-* 04_process_payment_POST.png
-* 05_approve_book_PUT.png
-
----
 
 ## Submission checklist (brief)
 
