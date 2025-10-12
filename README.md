@@ -32,10 +32,10 @@ A full-stack web platform that connects **buyers**, **sellers**, and **administr
 | Name               | Roll Number  | Responsibilities                                              |
 | ------------------ | ------------ | ------------------------------------------------------------- |
 | Ayush Pratap Singh | S20230010033 | Payment gateway, buyer’s library, admin reports, video feed.  |
-| Piyush Kumar       | S20230010186 | Buyer profile, homepage, seller upload, seller dashboard.     |
-| Ujjwal Singh       | S20230010245 | Order tracking, seller inventory, admin moderation.           |
-| Daivik Wadhwani    | S20230010064 | Complaint system, contact page, cart.                         |
-| Gugulothu Nithin   | S20230010099 | Authentication, sessions, shared UI (header/footer).          |
+| Piyush Kumar       | S20230010186 | Buyer profile, homepage, seller upload, user management.      |
+| Ujjwal Singh       | S20230010245 | Order tracking, seller dashboard, admin moderation.           |
+| Daivik Wadhwani    | S20230010064 | Complaint system, seller inventory, cart.                     |
+| Gugulothu Nithin   | S20230010099 | Authentication, contact & about us, shared UI (header/footer) |
 
 ---
 
