@@ -1,240 +1,286 @@
-# Bookish — Group 53
+# Bookish — Unified Marketplace for Book Buyers, Sellers & Admins
 
-*Project short:* A unified web platform for book buyers, sellers, and administrators.
-Bookish integrates the functionalities of both Amazon Books and Kindle Reader, offering a seamless experience for users to buy, sell, and read books online.
-The platform provides role-specific dashboards and features:
-Buyers can browse, subscribe, maintain personal libraries, and track reading progress.
-Sellers can upload books, manage inventory, and handle orders efficiently.
-Administrators can oversee content moderation, user management, and system-wide reports.
-Bookish aims to bridge the gap between book e-commerce and digital reading platforms, delivering an all-in-one solution for book enthusiasts and vendors alike.
----
-
-## Project meta
-
-* *Group ID:* 53
-* *Project title:* Bookish
-* *SPOC:*  — Ayush Pratap Singh , S20230010033 , ayushpratap.s23@iiits.in
-* *Team members & roles (from project report):*
-
-  * *Ayush Pratap Singh* — Payment gateway (subscriptions & paperback), Video feed, Buyer’s library, Admin dashboard, System reports.
-  * *Piyush Kumar* — Buyer profile & edit, Home page (search/filter), Seller upload, Seller dashboard, Admin user management.
-  * *Ujjwal Singh* — Order tracking System(for all roles),Seller Dashboard(including stats and analytics),Admin content moderation.
-  * *Daivik Wadhwani* — Complaint registration & resolution, Contact page , Cart functionality , Seller dashboard (sales & orders).
-  * *Gugulothu Nithin* — Authentication (register/login/logout), Session management, Header & footer, Contact Us & About pages.
+A full-stack web platform that connects **buyers**, **sellers**, and **administrators** with role-based dashboards and features like browsing, selling, cart & orders, payment/subscriptions, video reviews, complaint resolution, and admin moderation. This README is crafted from your mid-review artifacts and demo plan to be copy-paste ready; placeholders are included where you may want to update project-specific links or secrets.
 
 ---
 
-## Tech stack (summary)
+##  Quick links
 
-* *Backend:* Node.js + Express
-* *Frontend:* HTML/CSS + Tailwind + client-side JS
-* *DB:* MongoDB (Mongoose ODM)
-* *Other:* Sessions / JWT (depending on code), Payment gateway integration (Razorpay/Stripe/etc. — implemented by team)
+* **Repository:** `https://github.com/Ayush-aps/books`
+* **Demo video (Unlisted):** `https://www.youtube.com/watch?v=0gduV02pDyA`
+
+---
+## Metadata
+
+* **Groupid:** 53
+* **Project Title:** Bookish
+* **SPOC / Team lead:** Ayush Pratap Singh — `ayushpratap.s23@iiits.in` — Roll: `S20230010033`
+---
+
+##  Project Summary
+
+**Bookish** is a unified platform providing:
+
+* Buyer features: book browsing, cart, subscriptions, personal library, reading progress, video reviews, complaint/support.
+* Seller features: upload/manage books, inventory, order management, analytics.
+* Admin features: user management, content moderation (approve/reject books), system reports, complaint resolution.
 
 ---
 
-## How to run (local) — prerequisites & steps
+##  Team & Responsibilities
 
-### Prerequisites
+| Name               | Roll Number  | Responsibilities                                              |
+| ------------------ | ------------ | ------------------------------------------------------------- |
+| Ayush Pratap Singh | S20230010033 | Payment gateway, buyer’s library, admin reports, video feed.  |
+| Piyush Kumar       | S20230010186 | Buyer profile, homepage, seller upload, seller dashboard.     |
+| Ujjwal Singh       | S20230010245 | Order tracking, seller inventory, admin moderation.           |
+| Daivik Wadhwani    | S20230010064 | Complaint system, contact page, cart.                         |
+| Gugulothu Nithin   | S20230010099 | Authentication, sessions, shared UI (header/footer).          |
 
-* Node.js (v14+ recommended) and npm installed
-* MongoDB server (local or remote) accessible via MONGODB_URI in .env
+---
+
+##  Tech Stack
+
+**Frontend**
+
+* EJS templating (server-side rendered pages)
+* HTML5 & JavaScript
+* Tailwind CSS for styling
+
+**Backend**
+
+* Node.js + Express
+* MongoDB (Mongoose ODM)
+* Cloudinary
+* Payment integration (e.g. stripe)
+
+---
+
+##  Project Structure (typical)
+
+```
+bookish/
+├── app.js                 # Express entry (or node server.js)
+├── package.json
+├── /config                # DB, cloudinary, payment keys
+├── /controllers
+├── /models                # Mongoose schemas
+├── /routes
+├── /views                 # EJS templates
+├── /public                # static assets: css, js, images
+├── /uploads               # if used
+├── /artifacts             # network_evidence/, git-logs.txt, test_plan.md
+└── README.md
+```
+
+---
+
+##  Features (high level)
+
+* Buyer:
+
+  * Browse & search books, add to cart, checkout (subscription & purchases)
+  * Personal library, reading progress, video reviews/feed
+  * Submit & track complaints.
+  * Profile management (addresses, orders)
+    
+* Seller:
+
+  * Upload books with metadata and images
+  * Inventory & order management
+  * Sales analytics on dashboard
+    
+* Admin:
+
+  * Content moderation (approve/reject books)
+  * User & role management
+  * Reports: users, books, orders, complaints
+
+---
+
+## Prerequisites
+
+* Node.js v14+ and npm
+* MongoDB (Local or Atlas)
+* Git
 * (Optional) nodemon for development
-
-### Steps
-
-1. Clone repository and cd into project root.
-2. Copy provided .env into project root (if present). If .env is not provided, create it with the variables below.
-3. Install dependencies:
-
-   bash
-   npm install
-   
-4. Start the application:
-
-   bash
-   node app.js
-   # or, for auto-reload during development
-   nodemon app.js
-   
-5. Open the app in browser:
-
-   
-   http://localhost:3000
-   
-
-   (Default port: *3000*)
-
-### Typical runtime checks
-
-* On successful start, console should show a message similar to:
-
-  
-  Server running on port 3000
-  Connected to MongoDB at mongodb://...
-  
-* If server fails to connect to MongoDB, check .env and Mongo service status.
+* Cloudinary account 
+* Payment gateway credentials
 
 ---
 
-## Environment variables (example .env entries)
+##  Environment Variables
 
-> Use the .env included in the project if present. If you need to set up a local .env, use the following example placeholders:
+Create a `.env` file in project root (or `backend/`) with the following keys (fill values):
 
+```env
+# Database
+MONGODB_URI=mongodb+srv://<user>:<pass>@cluster0.mongodb.net/bookishdb
 
-PORT=3000
-MONGODB_URI=mongodb://localhost:27017/bookishdb
-SESSION_SECRET=some_random_secret_here
-JWT_SECRET=some_jwt_secret_here
-PAYMENT_KEY=your_payment_gateway_key_here   # if payment integration uses a key
+# Cloudinary (images)
+CLOUDINARY_CLOUD_NAME=...
+CLOUDINARY_API_KEY=...
+CLOUDINARY_API_SECRET=...
 
+# Payment gateway (example Stripe)
+Stripe_KEY_ID=...
+Stripe_KEY_SECRET=...
 
-> *Important:* Never commit real secrets to version control. Replace placeholders with actual values on the host running the app.
-
----
-
-## If MongoDB is not available / mocking DB
-
-If the included MONGODB_URI points to a remote DB that is not reachable, run a local MongoDB and update .env:
-
-1. Install and start MongoDB (platform-specific). On many systems:
-
-   bash
-   # macOS with Homebrew
-   brew tap mongodb/brew
-   brew install mongodb-community@6.0
-   brew services start mongodb-community@6.0
-   
-2. Update .env:
-
-   
-   MONGODB_URI=mongodb://localhost:27017/bookishdb
-   
-3. Seed minimal data using mongo shell or mongoimport (examples below).
-
-### Example minimal seed (mongo shell)
-
-bash
-# open mongo shell:
-mongo
-
-# in mongo shell:
-use bookishdb
-db.users.insertOne({ username: "admin", email: "admin@example.com", role: "admin", password: "hashed_password_placeholder" })
-db.books.insertOne({ title: "Sample Book", author: "Author A", price: 100, sellerId: null, approved: true })
-db.orders.insertOne({ userId: 1, items: [{ bookId: 1, qty: 1 }], status: "placed" })
-
-
-### Example mongoimport (JSON file)
-
-Create users.json:
-
-json
-{ "username":"admin", "email":"admin@example.com", "role":"admin", "password":"<hash>" }
-
-
-Then import:
-
-bash
-mongoimport --db bookishdb --collection users --file users.json --jsonArray
-
+# App
+PORT=4000
+```
 
 ---
 
-## Key files & demonstration pointers
+## 🛠 Installation & Running (local)
 
-> These are the main files/locations to point to during the demo. File names are typical for a Node/Express + Mongoose + static views architecture — please adjust if your code uses different naming.
+1. **Clone**
 
-* *Server entry*
+```bash
+git clone https://github.com/Ayush-aps/books.git
+cd books
+```
 
-  * app.js — Express app setup, middleware and server start.
-  * Demo pointer: show the app.listen(PORT, ...) message and session middleware.
+2. **Install**
 
-* *Routes / Controllers (API endpoints)*
+```bash
+npm install
+```
 
-  * routes/auth.js or controllers/authController.js — register(), login(), logout() functions (authentication + session).
-  * routes/books.js / controllers/bookController.js — getBooks(), createBook(), approveBook() (dynamic book flows).
-  * routes/cart.js / controllers/cartController.js — addToCart(), removeFromCart().
-  * routes/orders.js / controllers/orderController.js — getOrders(), updateOrderStatus().
-  * routes/complaints.js / controllers/complaintController.js — createComplaint(), resolveComplaint().
-  * routes/payments.js / controllers/paymentController.js — processPayment(), createSubscription().
+3. **Set .env**
+   Create `.env` with variables listed above.
 
-* *Models*
+4. **Run**
 
-  * models/User.js, models/Book.js, models/Order.js, models/Complaint.js — Mongoose schemas and field definitions.
+* Development with nodemon:
 
-* *Public / Client-side JS*
+```bash
+npx nodemon app.js
+```
 
-  * public/js/validation.js — form validation functions (e.g., validateForm()).
-  * public/js/books.js or public/js/home.js — dynamic loading and rendering of book lists (loadBooks()).
-  * public/js/cart.js — addToCart() uses fetch() to POST to /api/cart.
-  * public/js/admin.js — admin DOM updates and moderation handlers (e.g., approveBook() that does DOM changes without page reload).
+* Or:
 
-* *Views / Templates*
+```bash
+node app.js
+# or
+npm start
+```
 
-  * views/ or public/ HTML files: registration, login, home, seller dashboard, admin panel, contact, about, etc.
-  * Demo pointer: open the registration page and show the DOM validation; open admin moderation and show dynamic DOM updates.
+5. **Open in browser**
 
-> If any of the above file paths do not exist in the project, search for keywords in the repo (e.g., payment, validateForm, approveBook, fetch('/api')) and use the actual file names present.
-
----
-
-## Demo link & suggested timestamps (placeholders)
-
-Create demo_link.txt with the Unlisted YouTube link and timestamps in this format:
-
-
-https://youtu.be/<VIDEO_ID>
-00:00 - Title slide & business case
-00:50 - Form validation demo + show code
-02:00 - Dynamic HTML demo + show code
-03:30 - Async data handling demos (3 flows) + DevTools
-06:00 - Per-member contributions (10–20s each)
-06:30 - Wrap-up & artifact locations
-
-
-> Replace the placeholder URL and timestamps after recording.
+```
+http://localhost:4000
+```
 
 ---
 
-## Evidence & Artifacts
+##  Demo flows & testing checklist
 
-** Git Logs Text file for all commits over time
-* [git-logs.txt — full commit history](https://github.com/Ayush-aps/books/blob/main/git-logs.txt)
+The mid-review demo requires showing these flows — recommend verifying & recording them for evidence:
 
-  ### Latest Commits
+1. **Form validation demo** (client-side DOM validation).
+2. **Dynamic DOM update** — e.g., admin approves a book and the UI updates without reload.
+3. **Three async flows (show DevTools Network tab):**
 
- dc9ad84 - MrUjjwalSingh - Update README.md - Sun Oct 12 15:57:12 2025 +0530
- 2cccd7c - DiffusedSenpai - Update README.md - Sun Oct 12 05:08:02 2025 +0530
- 80774f2 - Ayush-aps - Change guestInfo name type - Sun Oct 12 02:03:09 2025 +0530
- 
-...
+   * GET `/api/books` — Load books list.
+   * POST `/api/cart` — Add to cart.
+   * POST `/api/complaints` — Submit complaint.
 
-** Network Evidence and Screenshots File
-* [network_evidences/screenshots for async calls — file link](https://github.com/Ayush-aps/books/blob/main/Network%20Evidence%20-Screenshots.pdf)
+**Artifacts to collect**
 
-
-
-## Submission checklist (brief)
-
-* [ ] source/ (complete code)
-* [ ] README_FULL.md (this file)
-* [ ] demo_link.txt (YouTube Unlisted link + timestamps)
-* [ ] test_plan.md (with evidence or notes)
-* [ ] network_evidence/ (screenshots of each async call)
-* [ ] git-logs.txt (author-filtered commit log)
-* [ ] schema_dump/ or collection JSON exports (mongodump/mongoexport)
-* [ ] PPT.pdf (presentation slides)
-* [ ] task_assignment.md and task_assignment.csv
-* [ ] SUBMISSION_CHECKLIST.md (all items ticked)
+* `network_evidence/` — screenshots of each network request in DevTools.
+* `git-logs.txt` — git commits per author (or screenshots).
+* `test_plan.md` — validated tests and results.
+* Mongo dump
 
 ---
 
-## Troubleshooting & common errors
+##  Key files & where to look (implementation notes)
 
-* *Mongo connection error:* check MONGODB_URI. If the URI in .env points to a remote host that is unreachable, switch to a local MongoDB instance and update the .env accordingly. See If MongoDB is not available / mocking DB above.
-* *Port already in use:* change PORT in .env or kill the process using that port (e.g., lsof -i :3000 / kill on UNIX).
-* *Missing env variables:* check .env for SESSION_SECRET, JWT_SECRET, PAYMENT_KEY and other values. Add placeholders locally and restart.
-* *Frontend JS errors:* open browser DevTools Console. Missing API endpoints often indicate the backend is not running or the DB connection failed.
+* `app.js` — Express entry point; session and middleware setup.
+* `routes/` — routes for books, users, orders, complaints, admin.
+* `controllers/` — actual business logic (orderController).
+* `models/` — Mongoose schemas: `User`, `Book`, `Order`, `Complaint`, etc.
+* `views/` — EJS templates and partials (header, footer, dashboards).
+* `public/js/` — client-side form validation, dynamic DOM, AJAX calls (fetch).
+* `config/` — DB connection, cloudinary, payment config.
 
+
+---
+
+## 💳 Payments & Subscriptions
+
+* Payment integration implemented for subscription/purchase flows (example: stripe).
+* Ensure `Stripe_*` keys are set in `.env` for live testing.
+
+---
+
+##  Status & Roadmap
+
+**Current version:** 1.0 (Mid-review)
+**Status:** Core features implemented as per FDFED; testing & final polish pending. 
+
+---
+
+## 🐞 Troubleshooting
+
+**Backend not starting**
+
+* Check `.env` variables and MongoDB URI.
+* Ensure MongoDB server (local or Atlas) is reachable.
+
+**Frontend errors**
+
+* Open browser console for JS errors.
+* Verify EJS variables passed from server.
+
+---
+
+## 📦 Submission artifacts (for mid-review)
+
+* `/source` — full source code
+* `README_FULL.md` (this file)
+* `demo_link.txt` — video URL + timestamps
+* `test_plan.md` — validation & async tests with results
+* `network_evidence/` — screenshots
+* `git-logs.txt`
+* `Mongo dump`
+* `documenation.pdf` 
+
+---
+
+## 📞 Contact & Support
+
+* **SPOC / Team lead:** Ayush Pratap Singh — `ayushpratap.s23@iiits.in`. Roll: `S20230010033`
+* For issues: open GitHub issues in the repository.
+
+p---
+
+## 🧾 License
+
+This project is released under the **MIT License**.
+
+---
+
+## 🎬 Demo Video Timestamps (suggested)
+
+https://www.youtube.com/watch?v=0gduV02pDyA
+
+```
+0:00  - Title slide & business case
+0:50  - Form validation demo (client-side)
+2:00  - Dynamic DOM demo (admin approve -> UI update)
+3:30  - Async flows: Load Books, Add to Cart, Submit Complaint (show DevTools)
+6:00  - Team contributions (10–20s per member)
+6:30  - Wrap-up & artifacts location
+```
+
+---
+
+## Evidence Locations
+* **Git logs** - gitlogs.txt - https://github.com/Ayush-aps/books/blob/main/git-logs.txt
+* **Network evidences** - Network Evidence Screenshot.pdf - https://github.com/Ayush-aps/books/blob/main/Network%20Evidence%20-Screenshots.pdf
+* **Test Plan** - Test_Plan.pdf - https://github.com/Ayush-aps/books/blob/main/Test_Plan.pdf
+* **Task Assignments** - Task Assignment.md - https://github.com/Ayush-aps/books/blob/main/task_assignment.md
+* **Documentation pdf** - Group 53 Documentation.pdf - https://github.com/Ayush-aps/books/blob/main/Group%2053%20Documentation.pdf
 ---
