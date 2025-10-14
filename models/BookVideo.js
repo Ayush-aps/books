@@ -14,6 +14,10 @@ const BookVideoSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  cloudinaryPublicId: {
+    type: String,
+    index: true
+  },
   thumbnailUrl: {
     type: String,
     default: '/img/default-thumbnail.jpg'

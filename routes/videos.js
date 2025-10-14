@@ -3,35 +3,21 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const streamifier = require('streamifier');
+const cloudinary = require('../config/cloudinary');
 const { ensureAuthenticated } = require('../middleware/auth');
 const Book = require('../models/Book');
 const BookVideo = require('../models/BookVideo');
 const VideoComment = require('../models/VideoComment');
 
-// Configure multer for video uploads
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    const dir = 'public/uploads/videos';
-    if (!fs.existsSync(dir)){
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    cb(null, dir);
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, uniqueSuffix + path.extname(file.originalname));
-  }
-});
-
-const upload = multer({ 
-  storage: storage,
+// Configure multer for in-memory storage (we'll push to Cloudinary)
+const storage = multer.memoryStorage();
+const upload = multer({
+  storage,
   limits: { fileSize: 50 * 1024 * 1024 }, // 50MB limit
   fileFilter: function (req, file, cb) {
-    if (file.mimetype.startsWith('video/')) {
-      cb(null, true);
-    } else {
-      cb(new Error('Only video files are allowed!'), false);
-    }
+    if (file.mimetype.startsWith('video/')) return cb(null, true);
+    return cb(new Error('Only video files are allowed!'));
   }
 });
 
@@ -59,44 +45,66 @@ router.get('/upload', ensureAuthenticated, async (req, res) => {
 
 // Process video upload
 router.post('/upload', ensureAuthenticated, upload.single('video'), async (req, res) => {
+  if (req.user.role !== 'buyer') {
+    req.flash('error_msg', 'Only buyers can upload videos');
+    return res.redirect('/');
+  }
+
+  const { title, description, bookId, tags } = req.body;
+  if (!title || !bookId || !req.file) {
+    req.flash('error_msg', 'Missing required fields');
+    return res.redirect('/videos/upload');
+  }
+
+  // Validate Cloudinary configured
+  if (!cloudinary.config().cloud_name) {
+    console.error('Cloudinary not configured.');
+    req.flash('error_msg', 'Video service not configured');
+    return res.redirect('/videos/upload');
+  }
+
+  // Upload stream to Cloudinary
+  const uploadStream = () => new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream({
+      resource_type: 'video',
+      folder: 'bookish/videos',
+      public_id: undefined,
+      overwrite: false,
+      eager: [
+        { format: 'mp4', transformation: { width: 640, height: 360, crop: 'limit' } }
+      ]
+    }, (error, result) => {
+      if (error) return reject(error);
+      resolve(result);
+    });
+    streamifier.createReadStream(req.file.buffer).pipe(stream);
+  });
+
   try {
-    if (req.user.role !== 'buyer') {
-      req.flash('error_msg', 'Only buyers can upload videos');
-      return res.redirect('/');
-    }
-    
-    const { title, description, bookId, tags } = req.body;
-    
-    // Validate input
-    if (!title || !bookId || !req.file) {
-      req.flash('error_msg', 'Missing required fields');
-      return res.redirect('/videos/upload');
-    }
-    
-    // Create thumbnail (here we'd normally generate one from the video)
-    // For now, use a default thumbnail
-    const thumbnailUrl = '/img/default-thumbnail.jpg';
-    
-    // Create new video document
+    const result = await uploadStream();
+
+    const thumbnailUrl = result?.secure_url?.replace(/\.mp4($|\?)/, '.jpg'); // placeholder heuristic
+    const tagArray = tags ? tags.split(',').map(t => t.trim()).filter(Boolean) : [];
+
     const newVideo = new BookVideo({
       title,
       description: description || '',
-      videoUrl: `/uploads/videos/${req.file.filename}`,
-      thumbnailUrl,
+      videoUrl: result.secure_url,
+      cloudinaryPublicId: result.public_id,
+      thumbnailUrl: thumbnailUrl || '/img/default-thumbnail.jpg',
       book: bookId,
       user: req.user._id,
       views: 0,
       likes: [],
-      duration: 90, // Default 90 seconds; in a real app, you'd extract this
-      tags: tags ? tags.split(',').map(tag => tag.trim()).filter(Boolean) : []
+      duration: Math.round(result.duration || 90),
+      tags: tagArray
     });
-    
+
     await newVideo.save();
-    
     req.flash('success_msg', 'Video uploaded successfully');
-    res.redirect('/buyer/video-feed');
+    return res.redirect('/buyer/video-feed');
   } catch (err) {
-    console.error('Error uploading video:', err);
+    console.error('Error uploading video to Cloudinary:', err);
     req.flash('error_msg', 'Error uploading video');
     return res.redirect('/videos/upload');
   }
