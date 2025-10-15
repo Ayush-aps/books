@@ -283,7 +283,7 @@ router.post("/delete/:id", ensureAuthenticated, ensureSeller, async (req, res) =
       return res.redirect("/seller/inventory");
     }
 
-    await book.remove()
+    await Book.deleteOne({ _id: req.params.id })
 
     req.flash("success_msg", "Book deleted successfully")
     res.redirect("/seller/inventory")
